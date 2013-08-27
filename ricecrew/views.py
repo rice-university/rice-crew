@@ -2,10 +2,19 @@ from datetime import datetime
 from flask import request, session, render_template, url_for, redirect
 from ricecrew import app
 from ricecrew.database import db_session
+from ricecrew.models import BlogEntry, Event
+from ricecrew.forms import SecureForm, BlogEntryForm
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db_session.remove()
+
+# A version of Flask's app.route decorator for class-based views
+def classroute(rule, endpoint, **options):
+    def decorator(cls):
+        app.add_url_rule(rule, endpoint, cls.as_view(), **options)
+        return cls
+    return decorator
 
 
 # Base view classes
@@ -139,6 +148,69 @@ class DeleteView(ModelFetchMixin, FormView):
         db_session.commit()
         return super(DeleteView, self).form_valid()
 
+
+# Model mixins
+
+class BlogEntryMixin(object):
+    model_class = BlogEntry
+    form_class = BlogEntryForm
+    redirect_view = 'blog'
+
+    def populate_obj(self):
+        super(BlogEntryMixin, self).populate_obj()
+        self.model.generate_markup()
+
+    def get_redirect_context(self):
+        return {}
+
+
+# Concrete views
+
 @app.route('/')
 def index():
-    return 'woo'
+    last_entry = BlogEntry.query.order_by(BlogEntry.date_posted.desc()).first()
+    events = Event.query.filter(
+        Event.start_date >= datetime.now()
+    ).order_by(Event.start_date.asc())[:3]
+
+    return render_template('index.html', entry=last_entry, events=events)
+
+
+@app.route('/news/')
+def blog():
+    page_size = 10
+    max_page = ((BlogEntry.query.count() - 1) / page_size) + 1
+
+    try:
+        page = int(request.args['page'])
+    except KeyError, ValueError:
+        page = 1
+    else:
+        page = max(1, min(page, max_page))
+
+    start, end = (page - 1) * page_size, page * page_size
+    entries = BlogEntry.query.order_by(BlogEntry.date_posted.desc())[start:end]
+
+    return render_template(
+        'blog.html', page=page, max_page=max_page, entries=entries)
+
+
+@classroute('/news/<int:pk>/', 'entry_detail')
+class EntryDetailView(BlogEntryMixin, DetailView):
+    template = 'entry_detail.html'
+
+
+@classroute('/news/add/', 'entry_create', methods=['GET', 'POST'])
+class EntryCreateView(BlogEntryMixin, CreateView):
+    pass
+
+
+@classroute('/news/<int:pk>/edit/', 'entry_update', methods=['GET', 'POST'])
+class EntryUpdateView(BlogEntryMixin, UpdateView):
+    pass
+
+
+@classroute('/news/<int:pk>/delete/', 'entry_delete', methods=['GET', 'POST'])
+class EntryDeleteView(BlogEntryMixin, DeleteView):
+    pass
+
