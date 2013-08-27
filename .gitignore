@@ -1,3 +1,4 @@
+.env
 venv
 sqlite.db
 *DS_Store
