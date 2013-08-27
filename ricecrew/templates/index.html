@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block extrahead %}
+        <script type="text/javascript" src="{{ url_for('static', filename='js/transition.js') }}"></script>
+{% endblock %}
+
+{% block hero %}
+    <div class="hero">
+        <img src="" />
+        <img src="" class="next" />
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="column thirdcol">
+        <h2><a href="#">Upcoming events</a></h2>
+        {% if events %}
+            <ul>{% for event in events %}
+                    <li><a>{{ event.title }}</a> <span>{{ event.start_date }}</span></li>
+            {% endfor %}</ul>
+        {% else %}
+            <p>No events</p>
+        {% endif %}
+    </div>
+
+    <div class="column thirdcol">
+        {% if entry %}
+            <h2><a href="{{ url_for('entry_detail', pk=entry.id) }}">{{ entry.title }}</a></h2>
+            <p>{{ entry.get_text_preview() }}</p>
+        {% else %}
+            <h2><a href="{{ url_for('blog') }}">News</a></h2>
+            <p>No news</p>
+        {% endif %}
+    </div>
+
+    <div class="column thirdcol">
+        <h2><a href="#">We're recruiting!</a></h2>
+        <p>Do you sometimes wake up at six in the morning and glance wistfully towards the nearest body of water without knowing why? We can help! Visit our <a>recruiting page</a> for more information.</p>
+    </div>
+{% endblock %}

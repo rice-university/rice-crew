@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}News - {{ super() }}{% endblock %}
+
+{% block content %}
+    <div class="column threequartercol">
+        {% if entries %}
+            <ul class="separate">{% for entry in entries %}
+                <li>
+                    <h1><a href="{{ url_for('entry_detail', pk=entry.id) }}" class="quiet">{{ entry.title }}</a></h1>
+                    <p class="byline">{{ entry.date_posted.strftime('%B %d, %Y at %I:%M %p') }}</p>
+                    {% set preview, truncated = entry.get_markup_preview() %}
+                    <p>{{ preview }}</p>
+                    {% if truncated %}
+                        <p><a href="{{ url_for('entry_detail', pk=entry.id) }}">Continue reading...</a></p>
+                    {% endif %}
+                </li>
+            {% endfor %}</ul>
+        {% else %}
+            <p>There is no news to display.</p>
+        {% endif %}
+
+        {% if page > 1 or page < max_page %}
+            <p class="separate">{% if page > 1 %}<a href="{{ url_for('blog', page=page-1) }}">Newer posts</a>{% endif %} {% if page < max_page %}<a href="{{ url_for('blog', page=page+1) }}">Older posts</a>{% endif %}</p>
+        {% endif %}
+    </div>
+
+    <div class="column quartercol">
+        <h2>Admin options</h2>
+        <ul>
+            <li><a href="{{ url_for('entry_create') }}">New post</a></li>
+        </ul>
+    </div>
+{% endblock %}

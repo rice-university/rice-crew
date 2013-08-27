@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete - {{ super() }}{% endblock %}
+
+{% block content %}
+    <div class="column">
+        <h1>Delete</h1>
+
+        <form method="post">
+            {{ form.csrf_token }}
+            <p>Are you sure?</p>
+            <p><input type="submit" value="Delete" /></p>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ model.title }} - {{ super() }}{% endblock %}
+
+{% block content %}
+    <div class="column threequartercol">
+        <h1>{{ model.title }}</h1>
+        <p class="byline">{{ model.date_posted.strftime('%B %d, %Y at %I:%M %p') }}</p>
+        {{ model.markup|safe }}
+    </div>
+
+    <div class="column quartercol">
+        <h2>Admin options</h2>
+        <ul>
+            <li><a href="{{ url_for('entry_update', pk=model.id) }}">Edit this post</a></li>
+            <li><a href="{{ url_for('entry_delete', pk=model.id) }}">Delete this post</a></li>
+        </ul>
+    </div>
+{% endblock %}

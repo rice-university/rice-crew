@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Add/Edit - {{ super() }}{% endblock %}
+
+{% block content %}
+    <div class="column">
+        <h1>Add/Edit</h1>
+
+        <form method="post">
+            <ul class="form">{% for field in form %}
+                {% if field.widget.__class__.__name__ == 'HiddenInput' %}
+                    {{ field }}
+                    {% for error in field.errors %}
+                        <li class="error">{{ error }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li><ul class="field">
+                        <li>{{ field.label }}</li>
+                        <li>{{ field }}</li>
+                        {% for error in field.errors %}
+                            <li class="error">{{ error }}</li>
+                        {% endfor %}
+                    </ul></li>
+                {% endif %}
+            {% endfor %}</ul>
+
+            <p><input type="submit" value="Submit" /></p>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}Rice Crew{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/normalize.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+        <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.0.3.min.js') }}"></script>
+        {%- block extrahead %}
+        {% endblock -%}
+    </head>
+    <body>
+        <div id="container">
+            <nav id="mainnav" class="pagewidth">
+                <a id="homelink" href="{{ url_for('index') }}">Rice Crew</a>
+                <ul>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="{{ url_for('blog') }}">News</a></li>
+                    <li><a href="#">Photos</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+
+            {% block hero %}<div class="minihero">
+                <img src="" />
+            </div>{% endblock %}
+
+            <div class="content pagewidth">{% block content %}{% endblock %}</div>
+        </div>
+    </body>
+</html>
