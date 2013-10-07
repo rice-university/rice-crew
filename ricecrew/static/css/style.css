@@ -78,6 +78,13 @@ a.quiet, nav#mainnav a
 }
 
 
+/* forms */
+p.error, li.error
+{
+    color: red;
+}
+
+
 /* misc element styles */
 
 p.separate

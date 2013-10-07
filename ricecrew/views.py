@@ -1,20 +1,67 @@
 from datetime import datetime
+from functools import wraps
+from urlparse import urlparse
 from flask import request, session, render_template, url_for, redirect
 from ricecrew import app
 from ricecrew.database import db_session
 from ricecrew.models import BlogEntry, Event
-from ricecrew.forms import SecureForm, BlogEntryForm
+from ricecrew.forms import SecureForm, LoginForm, BlogEntryForm
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db_session.remove()
 
-# A version of Flask's app.route decorator for class-based views
-def classroute(rule, endpoint, **options):
-    def decorator(cls):
-        app.add_url_rule(rule, endpoint, cls.as_view(), **options)
-        return cls
-    return decorator
+
+# Authentication
+
+def login_required(view):
+    @wraps(view)
+    def decorated_view(*args, **kwargs):
+        if not session.get('user'):
+            return redirect(url_for('login'))
+        return view(*args, **kwargs)
+    return decorated_view
+
+def admin_required(view):
+    @wraps(view)
+    def decorated_view(*args, **kwargs):
+        user = session.get('user')
+        if not user or not app.config['USERS'][user][0]:
+            return redirect(url_for('login'))
+        return view(*args, **kwargs)
+    return decorated_view
+
+
+def get_auth_redirect_url():
+    next = request.values.get('next')
+    if next:
+        # Only redirect if the user-provided URL points back to this
+        # application. The check will fail on URLs containing usernames or
+        # passwords but there's no reason anyone would be using those here
+        netloc = urlparse(next)[1]
+        if netloc in app.config['ALLOWED_HOSTS']:
+            return next
+
+    return url_for('index')
+
+
+@app.route('/login/', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        form = LoginForm(formdata=request.form, csrf_context=session)
+        if form.validate():
+            session['user'] = form.username.data
+            return redirect(get_auth_redirect_url())
+    else:
+        form = LoginForm(csrf_context=session)
+    return render_template('login.html', form=form)
+
+
+@app.route('/logout/')
+@login_required
+def logout():
+    del session['user']
+    return redirect(get_auth_redirect_url())
 
 
 # Base view classes
@@ -41,9 +88,9 @@ class View(object):
         return {}
 
     @classmethod
-    def as_view(cls):
+    def as_view(cls, *init_args, **init_kwargs):
         def view(*args, **kwargs):
-            self = cls()
+            self = cls(*init_args, **init_kwargs)
             return self.dispatch(*args, **kwargs)
         return view
 
@@ -90,6 +137,9 @@ class ModelFetchMixin(object):
         self.model = self.model_class.query.get(pk)
         if self.model is None:
             abort(404)
+        elif hasattr(self.model, 'public') and not (
+                self.model.public or session.get('user')):
+            return redirect(url_for('login'))
         return super(ModelFetchMixin, self).dispatch(*args, **kwargs)
 
     def get_template_context(self):
@@ -149,6 +199,31 @@ class DeleteView(ModelFetchMixin, FormView):
         return super(DeleteView, self).form_valid()
 
 
+def view_class_decorator(func_decorator):
+    '''
+    Adapts view function decorators to class-based views
+    '''
+
+    def decorator(cls):
+        as_view = cls.as_view
+        def as_decorated_view(cls, *args, **kwargs):
+            return func_decorator(as_view(*args, **kwargs))
+        cls.as_view = classmethod(as_decorated_view)
+        return cls
+    return decorator
+
+
+def classroute(rule, endpoint, **options):
+    '''
+    A version of Flask's app.route decorator for class-based views
+    '''
+
+    def decorator(cls):
+        app.add_url_rule(rule, endpoint, cls.as_view(), **options)
+        return cls
+    return decorator
+
+
 # Model mixins
 
 class BlogEntryMixin(object):
@@ -168,12 +243,16 @@ class BlogEntryMixin(object):
 
 @app.route('/')
 def index():
-    last_entry = BlogEntry.query.order_by(BlogEntry.date_posted.desc()).first()
-    events = Event.query.filter(
-        Event.start_date >= datetime.now()
-    ).order_by(Event.start_date.asc())[:3]
+    entries = BlogEntry.query
+    events = Event.query.filter(Event.start_date >= datetime.now())
+    if not session.get('user'):
+        entries = entries.filter(BlogEntry.public == True)
+        events = events.filter(Event.public == True)
 
-    return render_template('index.html', entry=last_entry, events=events)
+    last_entry = entries.order_by(BlogEntry.date_posted.desc()).first()
+    upcoming_events = events.order_by(Event.start_date.asc())[:3]
+    return render_template(
+        'index.html', entry=last_entry, events=upcoming_events)
 
 
 @app.route('/news/')
@@ -189,7 +268,10 @@ def blog():
         page = max(1, min(page, max_page))
 
     start, end = (page - 1) * page_size, page * page_size
-    entries = BlogEntry.query.order_by(BlogEntry.date_posted.desc())[start:end]
+    entries = BlogEntry.query
+    if not session.get('user'):
+        entries = entries.filter(BlogEntry.public == True)
+    entries = entries.order_by(BlogEntry.date_posted.desc())[start:end]
 
     return render_template(
         'blog.html', page=page, max_page=max_page, entries=entries)
@@ -201,16 +283,19 @@ class EntryDetailView(BlogEntryMixin, DetailView):
 
 
 @classroute('/news/add/', 'entry_create', methods=['GET', 'POST'])
+@view_class_decorator(login_required)
 class EntryCreateView(BlogEntryMixin, CreateView):
     pass
 
 
 @classroute('/news/<int:pk>/edit/', 'entry_update', methods=['GET', 'POST'])
+@view_class_decorator(login_required)
 class EntryUpdateView(BlogEntryMixin, UpdateView):
     pass
 
 
 @classroute('/news/<int:pk>/delete/', 'entry_delete', methods=['GET', 'POST'])
+@view_class_decorator(login_required)
 class EntryDeleteView(BlogEntryMixin, DeleteView):
     pass
 
