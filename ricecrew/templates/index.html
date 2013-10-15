@@ -6,8 +6,9 @@
 
 {% block hero %}
     <div class="hero">
-        <img src="" />
-        <img src="" class="next" />
+        <img src="{{ url_for('static', filename='img/hero1.jpg') }}" />
+        <img src="{{ url_for('static', filename='img/hero2.jpg') }}" class="next" />
+        <img src="{{ url_for('static', filename='img/hero3.jpg') }}" class="next" />
     </div>
 {% endblock %}
 

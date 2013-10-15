@@ -21,7 +21,7 @@
             </nav>
 
             {% block hero %}<div class="minihero">
-                <img src="" />
+                <img src="{{ url_for('static', filename='img/minihero.jpg') }}" />
             </div>{% endblock %}
 
             <div class="content pagewidth">{% block content %}{% endblock %}</div>
