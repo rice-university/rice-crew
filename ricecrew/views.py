@@ -19,7 +19,7 @@ def login_required(view):
     @wraps(view)
     def decorated_view(*args, **kwargs):
         if not has_login():
-            return redirect(url_for('login'))
+            return redirect(url_for('login', next=request.url))
         return view(*args, **kwargs)
     return decorated_view
 
@@ -28,7 +28,7 @@ def admin_required(view):
     @wraps(view)
     def decorated_view(*args, **kwargs):
         if not has_admin():
-            return redirect(url_for('login'))
+            return redirect(url_for('login', next=request.url))
         return view(*args, **kwargs)
     return decorated_view
 
