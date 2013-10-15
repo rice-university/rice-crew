@@ -188,7 +188,6 @@ class UpdateView(ModelFetchMixin, ModelEditMixin, FormView):
 
 
 class DeleteView(ModelFetchMixin, FormView):
-    form_class = SecureForm
     template = 'delete.html'
 
     def form_valid(self):
@@ -227,14 +226,11 @@ def classroute(rule, endpoint, **options):
 class BlogEntryMixin(object):
     model_class = BlogEntry
     form_class = BlogEntryForm
-    redirect_view = 'blog'
+    redirect_view = 'entry_detail'
 
     def populate_obj(self):
         super(BlogEntryMixin, self).populate_obj()
         self.model.generate_markup()
-
-    def get_redirect_context(self):
-        return {}
 
 
 # Concrete views
@@ -295,5 +291,9 @@ class EntryUpdateView(BlogEntryMixin, UpdateView):
 @classroute('/news/<int:pk>/delete/', 'entry_delete', methods=['GET', 'POST'])
 @view_class_decorator(admin_required)
 class EntryDeleteView(BlogEntryMixin, DeleteView):
-    pass
+    form_class = SecureForm
+    redirect_view = 'blog'
+
+    def get_redirect_context(self):
+        return {}
 
