@@ -9,11 +9,11 @@
         {{ model.markup|safe }}
     </div>
 
-    <div class="column quartercol">
+    {% if has_admin() %}<div class="column quartercol">
         <h2>Admin options</h2>
         <ul>
             <li><a href="{{ url_for('entry_update', pk=model.id) }}">Edit this post</a></li>
             <li><a href="{{ url_for('entry_delete', pk=model.id) }}">Delete this post</a></li>
         </ul>
-    </div>
+    </div>{% endif %}
 {% endblock %}

@@ -6,6 +6,7 @@ from ricecrew import app
 from ricecrew.database import db_session
 from ricecrew.models import BlogEntry, Event
 from ricecrew.forms import SecureForm, LoginForm, BlogEntryForm
+from ricecrew.utils import has_login, has_admin
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):
@@ -17,16 +18,16 @@ def shutdown_session(exception=None):
 def login_required(view):
     @wraps(view)
     def decorated_view(*args, **kwargs):
-        if not session.get('user'):
+        if not has_login():
             return redirect(url_for('login'))
         return view(*args, **kwargs)
     return decorated_view
 
+
 def admin_required(view):
     @wraps(view)
     def decorated_view(*args, **kwargs):
-        user = session.get('user')
-        if not user or not app.config['USERS'][user][0]:
+        if not has_admin():
             return redirect(url_for('login'))
         return view(*args, **kwargs)
     return decorated_view
@@ -283,19 +284,19 @@ class EntryDetailView(BlogEntryMixin, DetailView):
 
 
 @classroute('/news/add/', 'entry_create', methods=['GET', 'POST'])
-@view_class_decorator(login_required)
+@view_class_decorator(admin_required)
 class EntryCreateView(BlogEntryMixin, CreateView):
     pass
 
 
 @classroute('/news/<int:pk>/edit/', 'entry_update', methods=['GET', 'POST'])
-@view_class_decorator(login_required)
+@view_class_decorator(admin_required)
 class EntryUpdateView(BlogEntryMixin, UpdateView):
     pass
 
 
 @classroute('/news/<int:pk>/delete/', 'entry_delete', methods=['GET', 'POST'])
-@view_class_decorator(login_required)
+@view_class_decorator(admin_required)
 class EntryDeleteView(BlogEntryMixin, DeleteView):
     pass
 

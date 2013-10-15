@@ -23,10 +23,10 @@
         {% endif %}
     </div>
 
-    <div class="column quartercol">
+    {% if has_admin() %}<div class="column quartercol">
         <h2>Admin options</h2>
         <ul>
             <li><a href="{{ url_for('entry_create') }}">New post</a></li>
         </ul>
-    </div>
+    </div>{% endif %}
 {% endblock %}
