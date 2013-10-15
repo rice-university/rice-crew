@@ -1,7 +1,7 @@
 from datetime import datetime
 from functools import wraps
 from urlparse import urlparse
-from flask import request, session, render_template, url_for, redirect
+from flask import request, session, render_template, url_for, redirect, abort
 from ricecrew import app
 from ricecrew.database import db_session
 from ricecrew.models import BlogEntry, Event
@@ -140,7 +140,7 @@ class ModelFetchMixin(object):
             abort(404)
         elif hasattr(self.model, 'public') and not (
                 self.model.public or session.get('user')):
-            return redirect(url_for('login'))
+            return redirect(url_for('login', next=request.url))
         return super(ModelFetchMixin, self).dispatch(*args, **kwargs)
 
     def get_template_context(self):
