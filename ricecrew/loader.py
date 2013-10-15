@@ -3,3 +3,9 @@
 # point your WSGI server to this module.
 
 from ricecrew import app, views
+
+if not app.debug:
+    import logging
+    handler = logging.StreamHandler()
+    handler.setLevel(logging.WARNING)
+    app.logger.addHandler(handler)
