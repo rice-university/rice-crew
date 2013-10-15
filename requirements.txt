@@ -1,7 +1,7 @@
 Flask==0.10.1
 Markdown==2.3.1
 SQLAlchemy==0.8.2
-WTForms==1.0.4
+WTForms==1.0.5
 gevent==0.13.8
 greenlet==0.4.1
 gunicorn==17.5
