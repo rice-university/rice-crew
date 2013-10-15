@@ -19,7 +19,7 @@ def login_required(view):
     @wraps(view)
     def decorated_view(*args, **kwargs):
         if not has_login():
-            return redirect(url_for('login', next=request.url))
+            return redirect(url_for('login', next=request.path))
         return view(*args, **kwargs)
     return decorated_view
 
@@ -28,7 +28,7 @@ def admin_required(view):
     @wraps(view)
     def decorated_view(*args, **kwargs):
         if not has_admin():
-            return redirect(url_for('login', next=request.url))
+            return redirect(url_for('login', next=request.path))
         return view(*args, **kwargs)
     return decorated_view
 
@@ -36,13 +36,10 @@ def admin_required(view):
 def get_auth_redirect_url():
     next = request.values.get('next')
     if next:
-        # Only redirect if the user-provided URL points back to this
-        # application. The check will fail on URLs containing usernames or
-        # passwords but there's no reason anyone would be using those here
+        # Only redirect if the user-provided URL points back to this application
         netloc = urlparse(next)[1]
-        if netloc in app.config['ALLOWED_HOSTS']:
+        if not netloc or netloc in app.config['ALLOWED_HOSTS']:
             return next
-
     return url_for('index')
 
 
@@ -140,7 +137,7 @@ class ModelFetchMixin(object):
             abort(404)
         elif hasattr(self.model, 'public') and not (
                 self.model.public or session.get('user')):
-            return redirect(url_for('login', next=request.url))
+            return redirect(url_for('login', next=request.path))
         return super(ModelFetchMixin, self).dispatch(*args, **kwargs)
 
     def get_template_context(self):
