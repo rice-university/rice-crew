@@ -98,8 +98,7 @@ p.separate
 
 .pagewidth
 {
-    min-width: 960px;
-    max-width: 1280px;
+    width: 960px;
     margin: 0 auto;
 }
 
@@ -150,7 +149,7 @@ nav#mainnav > ul > li
 
 div.hero, div.minihero
 {
-    max-width: 1440px;
+    max-width: 1120px;
     position: relative;
     margin: 0 auto;
     overflow: hidden;
@@ -170,7 +169,7 @@ div.hero
 
 div.hero > img
 {
-    left: -784px;
+    left: -624px;
     opacity: 1;
 
     -webkit-transition-property: left, opacity;
@@ -188,7 +187,7 @@ div.hero > img
 
 div.hero > img.next
 {
-    left: -720px;
+    left: -560px;
     opacity: 0;
 
     -webkit-transition-duration: 0s;
@@ -200,7 +199,7 @@ div.hero > img.next
 
 div.hero > img.prev
 {
-    left: -848px;
+    left: -688px;
     opacity: 0;
 }
 
@@ -211,7 +210,7 @@ div.minihero
 
 div.minihero > img
 {
-    left: -720px;
+    left: -560px;
 }
 
 
