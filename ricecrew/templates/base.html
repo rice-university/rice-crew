@@ -13,10 +13,13 @@
             <nav id="mainnav" class="pagewidth">
                 <a id="homelink" href="{{ url_for('index') }}">Rice Crew</a>
                 <ul>
-                    <li><a href="#">Events</a></li>
                     <li><a href="{{ url_for('blog') }}">News</a></li>
-                    <li><a href="#">Photos</a></li>
-                    <li><a href="#">About</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li>{% if has_login() %}
+                        <a href="{{ url_for('logout', next=request.path) }}">Log Out</a>
+                    {% else %}
+                        <a href="{{ url_for('login', next=request.path) }}">Log In</a>
+                    {% endif %}</li>
                 </ul>
             </nav>
 

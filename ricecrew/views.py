@@ -70,6 +70,10 @@ class View(object):
     'template'.
     '''
 
+    def __init__(self, **kwargs):
+        for k, v in kwargs.iteritems():
+            setattr(self, k, v)
+
     def dispatch(self, *args, **kwargs):
         if request.method == 'POST':
             return self.post(*args, **kwargs)
@@ -203,6 +207,7 @@ def view_class_decorator(func_decorator):
 
     def decorator(cls):
         as_view = cls.as_view
+        @wraps(as_view)
         def as_decorated_view(cls, *args, **kwargs):
             return func_decorator(as_view(*args, **kwargs))
         cls.as_view = classmethod(as_decorated_view)
@@ -297,3 +302,16 @@ class EntryDeleteView(BlogEntryMixin, DeleteView):
     def get_redirect_context(self):
         return {}
 
+
+# Static pages (about, etc.)
+
+app.add_url_rule(
+    '/about/', 'about', View.as_view(template='flatpages/about.html'))
+
+app.add_url_rule(
+    '/about/recruiting/', 'recruiting',
+    View.as_view(template='flatpages/recruiting.html'))
+
+app.add_url_rule(
+    '/about/history/', 'history',
+    View.as_view(template='flatpages/history.html'))
