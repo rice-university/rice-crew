@@ -1,5 +1,5 @@
 from wtforms import (Form, TextField, TextAreaField, DateTimeField,
-                     BooleanField, PasswordField)
+                     BooleanField, PasswordField, HiddenField, validators)
 from wtforms.ext.csrf.session import SessionSecureForm
 from ricecrew import app
 
@@ -9,8 +9,8 @@ class SecureForm(SessionSecureForm):
 
 
 class LoginForm(SecureForm):
-    username = TextField()
-    password = PasswordField()
+    username = TextField(validators=[validators.InputRequired()])
+    password = PasswordField(validators=[validators.InputRequired()])
 
     def validate(self):
         result = super(LoginForm, self).validate()
@@ -24,8 +24,8 @@ class LoginForm(SecureForm):
 
 
 class BlogEntryForm(SecureForm):
-    title = TextField()
-    body = TextAreaField()
+    title = TextField(validators=[validators.InputRequired()])
+    body = TextAreaField(validators=[validators.InputRequired()])
     public = BooleanField()
 
 
