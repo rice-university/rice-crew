@@ -6,14 +6,16 @@
 
 {% block hero %}
     <div class="hero">
-        <img src="{{ url_for('static', filename='img/hero1.jpg') }}" />
-        <img src="{{ url_for('static', filename='img/hero2.jpg') }}" class="next" />
-        <img src="{{ url_for('static', filename='img/hero3.jpg') }}" class="next" />
+        <img src="{{ url_for('static', filename='img/hero1.png') }}" />
+        <img src="{{ url_for('static', filename='img/hero2.png') }}" class="next" />
+        <img src="{{ url_for('static', filename='img/hero3.png') }}" class="next" />
+        <img src="{{ url_for('static', filename='img/hero4.png') }}" class="next" />
+        <img src="{{ url_for('static', filename='img/hero5.png') }}" class="next" />
     </div>
 {% endblock %}
 
 {% block content %}
-    <div class="column thirdcol">
+    <!--div class="column thirdcol">
         <h2><a href="#" class="quiet">Upcoming events</a></h2>
         {% if events %}
             <ul>{% for event in events %}
@@ -22,12 +24,12 @@
         {% else %}
             <p>No events</p>
         {% endif %}
-    </div>
+    </div-->
 
-    <div class="column thirdcol">
+    <div class="column twothirdcol">
         {% if entry %}
             <h2><a href="{{ url_for('entry_detail', pk=entry.id) }}" class="quiet">{{ entry.title }}</a></h2>
-            {% set preview, truncated = entry.get_text_preview(200) %}
+            {% set preview, truncated = entry.get_text_preview(500) %}
             {{ preview|safe }}
             {% if truncated %}<p><a href="{{ url_for('entry_detail', pk=entry.id) }}">More</a></p>{% endif %}
         {% else %}
