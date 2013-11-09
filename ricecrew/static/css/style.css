@@ -165,7 +165,7 @@ div.hero
 
 div.hero > img
 {
-    left: -1000px;
+    left: -1024px;
     opacity: 1;
 
     -webkit-transition-property: left, opacity;
@@ -183,7 +183,7 @@ div.hero > img
 
 div.hero > img.next
 {
-    left: -1024px;
+    left: -1048px;
     opacity: 0;
 
     -webkit-transition-duration: 0s;
@@ -195,7 +195,7 @@ div.hero > img.next
 
 div.hero > img.prev
 {
-    left: -976px;
+    left: -1000px;
     opacity: 0;
 }
 
