@@ -51,6 +51,8 @@ class PreviewParser(HTMLParser):
         if self.length > 0:
             if len(data) > self.length:
                 self.truncated = True
+                while not data[self.length - 1].isspace() and self.length > 1:
+                    self.length -= 1
                 data = data[:self.length - 1].rstrip() + u'\u2026'
             self.parts.append(data)
             self.length -= len(data)
