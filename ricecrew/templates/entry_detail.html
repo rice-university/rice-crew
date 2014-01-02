@@ -5,7 +5,7 @@
 {% block content %}
     <div class="column threequartercol">
         <h1>{{ model.title }}</h1>
-        <p class="byline">{{ model.date_posted.strftime('%B %d, %Y at %I:%M %p') }}</p>
+        <p class="byline">{{ model.timestamp.strftime('%B %d, %Y at %I:%M %p') }}</p>
         {{ model.markup|safe }}
     </div>
 

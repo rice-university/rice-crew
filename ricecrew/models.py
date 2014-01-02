@@ -70,14 +70,14 @@ class BlogEntry(Base):
     __tablename__ = 'blog_entries'
 
     id = Column(Integer, primary_key=True)
-    date_posted = Column(DateTime)
+    timestamp = Column(DateTime)
     title = Column(String)
     body = Column(String)
     markup = Column(String)
     public = Column(Boolean)
 
     def __init__(self):
-        self.date_posted = datetime.now()
+        self.timestamp = datetime.now()
 
     def generate_markup(self):
         self.markup = markdown.markdown(
@@ -95,8 +95,9 @@ class Event(Base):
     __tablename__ = 'events'
 
     id = Column(Integer, primary_key=True)
-    start_date = Column(DateTime)
-    end_date = Column(DateTime)
+    series_id = Column(String)
+    start = Column(DateTime)
+    end = Column(DateTime)
     title = Column(String)
     description = Column(String)
     public = Column(Boolean)

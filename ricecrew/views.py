@@ -243,13 +243,13 @@ class BlogEntryMixin(object):
 @app.route('/')
 def index():
     entries = BlogEntry.query
-    events = Event.query.filter(Event.start_date >= datetime.now())
+    events = Event.query.filter(Event.start >= datetime.now())
     if not session.get('user'):
         entries = entries.filter(BlogEntry.public == True)
         events = events.filter(Event.public == True)
 
-    last_entry = entries.order_by(BlogEntry.date_posted.desc()).first()
-    upcoming_events = events.order_by(Event.start_date.asc())[:3]
+    last_entry = entries.order_by(BlogEntry.timestamp.desc()).first()
+    upcoming_events = events.order_by(Event.start.asc())[:3]
     return render_template(
         'index.html', entry=last_entry, events=upcoming_events)
 
@@ -270,7 +270,7 @@ def blog():
     entries = BlogEntry.query
     if not session.get('user'):
         entries = entries.filter(BlogEntry.public == True)
-    entries = entries.order_by(BlogEntry.date_posted.desc())[start:end]
+    entries = entries.order_by(BlogEntry.timestamp.desc())[start:end]
 
     return render_template(
         'blog.html', page=page, max_page=max_page, entries=entries)

@@ -8,8 +8,8 @@
             <ul class="separate">{% for entry in entries %}
                 <li>
                     <h1><a href="{{ url_for('entry_detail', pk=entry.id) }}" class="quiet">{{ entry.title }}</a></h1>
-                    <p class="byline">{{ entry.date_posted.strftime('%B %d, %Y at %I:%M %p') }}</p>
                     {% set preview, truncated = entry.get_text_preview(500, 2) %}
+                    <p class="byline">{{ entry.timestamp.strftime('%B %d, %Y at %I:%M %p') }}</p>
                     {{ preview|safe }}
                     {% if truncated %}<p><a href="{{ url_for('entry_detail', pk=entry.id) }}">Continue Reading</a></p>{% endif %}
                 </li>
