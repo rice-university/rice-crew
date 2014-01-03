@@ -1,31 +1,20 @@
 {% extends 'base.html' %}
 
 {% block extrahead %}
-        <script type="text/javascript" src="{{ url_for('static', filename='js/transition.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/hero.js') }}"></script>
 {% endblock %}
 
 {% block hero %}
-    <div class="hero">
-        <img src="{{ url_for('static', filename='img/hero1.png') }}" />
-        <img src="{{ url_for('static', filename='img/hero2.png') }}" class="next" />
-        <img src="{{ url_for('static', filename='img/hero3.png') }}" class="next" />
-        <img src="{{ url_for('static', filename='img/hero4.png') }}" class="next" />
-        <img src="{{ url_for('static', filename='img/hero5.png') }}" class="next" />
+    <div id="herowrapper">
+        <div id="hero" data-images="{{ url_for('static', filename='img/hero1.jpg') }};{{ url_for('static', filename='img/hero2.jpg') }};{{ url_for('static', filename='img/hero3.jpg') }}"></div>
+        <div id="herobuttons" class="extrawidth">
+            <a id="heroprev" href="#"></a>
+            <a id="heronext" href="#"></a>
+        </div>
     </div>
 {% endblock %}
 
 {% block content %}
-    <!--div class="column thirdcol">
-        <h2><a href="#" class="quiet">Upcoming events</a></h2>
-        {% if events %}
-            <ul>{% for event in events %}
-                    <li><a>{{ event.title }}</a> <span>{{ event.start_date }}</span></li>
-            {% endfor %}</ul>
-        {% else %}
-            <p>No events</p>
-        {% endif %}
-    </div-->
-
     <div class="column twothirdcol">
         {% if entry %}
             <h2><a href="{{ url_for('entry_detail', pk=entry.id) }}" class="quiet">{{ entry.title }}</a></h2>

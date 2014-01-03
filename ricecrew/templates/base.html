@@ -3,29 +3,30 @@
     <head>
         <title>{% block title %}Rice Crew{% endblock %}</title>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/normalize.css') }}" />
+        <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Merriweather|Open+Sans:400,300' />
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
         <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.0.3.min.js') }}"></script>
         {%- block extrahead %}
         {% endblock -%}
     </head>
     <body>
-        <div id="container">
-            <nav id="mainnav" class="pagewidth">
-                <a id="homelink" href="{{ url_for('index') }}">Rice Crew</a>
-                <ul>
-                    <li><a href="{{ url_for('blog') }}">News</a></li>
-                    <li><a href="{{ url_for('about') }}">About</a></li>
+        <nav id="mainnav">
+            <div class="pagewidth">
+                <a id="homelink" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/R.svg') }}" /></a>
+                <ul class="nobullet">
+                    <li><a href="{{ url_for('blog') }}">NEWS</a></li>
+                    <li><a href="{{ url_for('about') }}">ABOUT</a></li>
                     <li>{% if has_login() %}
-                        <a href="{{ url_for('logout', next=request.path) }}">Log Out</a>
+                        <a href="{{ url_for('logout', next=request.path) }}">LOG OUT</a>
                     {% else %}
-                        <a href="{{ url_for('login', next=request.path) }}">Log In</a>
+                        <a href="{{ url_for('login', next=request.path) }}">LOG IN</a>
                     {% endif %}</li>
                 </ul>
-            </nav>
+            </div>
+        </nav>
 
-            {% block hero %}<div class="minihero"></div>{% endblock %}
+        {% block hero %}{% endblock %}
 
-            <div class="content pagewidth">{% block content %}{% endblock %}</div>
-        </div>
+        <div class="content pagewidth">{% block content %}{% endblock %}</div>
     </body>
 </html>
