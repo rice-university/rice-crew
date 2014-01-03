@@ -20,7 +20,7 @@ class PreviewParser(HTMLParser):
 
     def build_element(self, tag, attrs, close=False):
         fstr = '<{} {} />' if close else '<{} {}>'
-        return fstr.format(tag, ' '.join('{}="{}"'.format(x) for x in attrs))
+        return fstr.format(tag, ' '.join('{}="{}"'.format(*x) for x in attrs))
 
     def handle_start_or_startend(self, tag, attrs, startend=False):
         if tag == 'img':
