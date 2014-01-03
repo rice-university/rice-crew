@@ -68,12 +68,14 @@ $(document).ready(function() {
 
         // Transition every 10s and with back/forward buttons
         var transitionInterval = setInterval(transitionForward, 10000);
-        prevBtn.on('click', function() {
+        prevBtn.on('click', function(event) {
+            event.preventDefault();
             transitionBack();
             clearInterval(transitionInterval);
             transitionInterval = setInterval(transitionForward, 10000);
         });
-        nextBtn.on('click', function() {
+        nextBtn.on('click', function(event) {
+            event.preventDefault();
             transitionForward();
             clearInterval(transitionInterval);
             transitionInterval = setInterval(transitionForward, 10000);
