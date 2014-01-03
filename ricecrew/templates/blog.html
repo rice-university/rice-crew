@@ -2,11 +2,15 @@
 
 {% block title %}News - {{ super() }}{% endblock %}
 
+{% block extrahead %}
+        <script type="text/javascript" src="{{ url_for('static', filename='js/image_resize.js') }}"></script>
+{% endblock %}
+
 {% block content %}
     <div class="column threequartercol">
         {% if entries %}
-                <li>
             <ol class="separate nobullet">{% for entry in entries %}
+                <li class="entry">
                     <h1><a href="{{ url_for('entry_detail', pk=entry.id) }}" class="quiet">{{ entry.title }}</a></h1>
                     <p class="byline">{{ entry.timestamp.strftime('%B %d, %Y at %I:%M %p') }}</p>
                     {% set preview, truncated = entry.get_text_preview(1000, 2) %}

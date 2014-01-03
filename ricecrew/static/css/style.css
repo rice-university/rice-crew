@@ -358,7 +358,24 @@ p.byline
     color: rgb(160,160,160);
 }
 
-div.column > ul.separate > li:first-child > :first-child
+li.entry:first-child > :first-child
 {
     margin-top: 0;
+}
+
+.entry img
+{
+    max-width: 100%;
+    max-height: 15em;
+}
+
+.entry img.expandable:hover
+{
+    opacity: 0.6;
+}
+
+.entry img.expandable.expanded
+{
+    max-height: none;
+    opacity: 1;
 }
