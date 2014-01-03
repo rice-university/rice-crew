@@ -5,15 +5,15 @@
 {% block content %}
     <div class="column threequartercol">
         {% if entries %}
-            <ul class="separate nobullet">{% for entry in entries %}
                 <li>
+            <ol class="separate nobullet">{% for entry in entries %}
                     <h1><a href="{{ url_for('entry_detail', pk=entry.id) }}" class="quiet">{{ entry.title }}</a></h1>
                     <p class="byline">{{ entry.timestamp.strftime('%B %d, %Y at %I:%M %p') }}</p>
                     {% set preview, truncated = entry.get_text_preview(1000, 2) %}
                     {{ preview|safe }}
                     {% if truncated %}<p><a href="{{ url_for('entry_detail', pk=entry.id) }}">Continue Reading</a></p>{% endif %}
                 </li>
-            {% endfor %}</ul>
+            {% endfor %}</ol>
         {% else %}
             <p>There is no news to display.</p>
         {% endif %}
