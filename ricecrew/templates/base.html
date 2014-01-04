@@ -6,8 +6,7 @@
         <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Merriweather|Open+Sans:400,300' />
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
         <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.0.3.min.js') }}"></script>
-        {%- block extrahead %}
-        {% endblock -%}
+        {%- block extrahead %}{% endblock -%}
     </head>
     <body>
         <nav id="mainnav">
@@ -27,6 +26,6 @@
 
         {% block hero %}{% endblock %}
 
-        <div class="content pagewidth">{% block content %}{% endblock %}</div>
+        <div id="content" class="pagewidth">{% block content %}{% endblock %}</div>
     </body>
 </html>

@@ -88,7 +88,7 @@ a.quiet
 
 a.quiet:hover
 {
-    color: rgb(92,92,92);
+    color: rgb(160,160,160);
 }
 
 
@@ -133,7 +133,7 @@ div.extrawidth
     margin: 0 auto;
 }
 
-div.content
+div#content
 {
     margin: 1.5em auto;
     overflow: hidden;
