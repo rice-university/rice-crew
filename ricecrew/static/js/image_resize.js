@@ -1,15 +1,17 @@
 $(document).ready(function() {
     var entryWidth = $('.entry').width();
 
-    $('.entry img').on('load', function() {
+    var handleImage = function() {
         if (this.naturalWidth > entryWidth || this.naturalHeight > 240) {
-            $(this).addClass('expandable').on('click', function(event) {
-                event.stopPropagation();
-                $(this).toggleClass('expanded');
-            });
+            $(this).addClass('expandable').off('click').on('click',
+                function(event) {
+                    event.stopPropagation();
+                    $(this).toggleClass('expanded');
+                });
         }
-    });
+    };
 
+    $('.entry img').each(handleImage).on('load', handleImage);
     $('body').on('click', function() {
         $('img.expanded').removeClass('expanded');
     });
