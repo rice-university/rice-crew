@@ -2,6 +2,11 @@
 
 {% block title %}About - {{ super() }}{% endblock %}
 
+{% block breadcrumbs %}
+    <li><a href="{{ url_for('index') }}">Home</a></li>
+    <li><a href="{{ url_for('about') }}">About</a></li>
+{% endblock %}
+
 {% block content %}
     <div class="column threequartercol">
         <h1>About Us</h1>

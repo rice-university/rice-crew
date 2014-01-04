@@ -304,6 +304,50 @@ a#heronext
 }
 
 
+/* breadcrumbs */
+
+div#breadcrumbs
+{
+    background-color: rgb(232,232,232);
+    overflow: hidden;
+}
+
+div#breadcrumbs > ol
+{
+    margin: 0.5em 0;
+    padding-left: 0;
+    overflow: hidden;
+}
+
+div#breadcrumbs > ol:empty
+{
+    display: none;
+}
+
+div#breadcrumbs > ol > li
+{
+    position: relative;
+    font-size: 0.75em;
+    line-height: 1.5em;
+    list-style-type: none;
+    padding-left: 2em;
+    float: left;
+}
+
+div#breadcrumbs > ol > li::before
+{
+    content: ">";
+    position: absolute;
+    left: 0.75em;
+    color: rgb(128,128,128);
+}
+
+div#breadcrumbs > ol > li:first-child::before
+{
+    display: none;
+}
+
+
 /* columns */
 
 div.column

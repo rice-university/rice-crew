@@ -26,6 +26,10 @@
 
         {% block hero %}{% endblock %}
 
+        <div id="breadcrumbs" class="pagewidth"><ol>
+            {%- block breadcrumbs %}{% endblock -%}
+        </ol></div>
+
         <div id="content" class="pagewidth">{% block content %}{% endblock %}</div>
     </body>
 </html>
