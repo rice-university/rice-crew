@@ -1,3 +1,4 @@
+from pytz import utc
 from flask import session
 from ricecrew import app
 
@@ -14,3 +15,7 @@ def has_login():
 @app.template_global()
 def has_admin():
     return has_login() and app.config['USERS'][session['user']][0]
+
+@app.template_global()
+def localtime(naive_dt):
+    return utc.localize(naive_dt).astimezone(app.config['TIMEZONE'])

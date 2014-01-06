@@ -77,7 +77,7 @@ class BlogEntry(Base):
     public = Column(Boolean)
 
     def __init__(self):
-        self.timestamp = datetime.now()
+        self.timestamp = datetime.utcnow()
 
     def generate_markup(self):
         self.markup = markdown.markdown(
