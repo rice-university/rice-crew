@@ -27,7 +27,16 @@
         {% block hero %}{% endblock %}
 
         <div id="breadcrumbs" class="pagewidth"><ol>
-            {%- block breadcrumbs %}{% endblock -%}
+            {%- block breadcrumbs %}
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                {% for name, url in breadcrumbs %}
+                    {% if url %}
+                        <li><a href="{{ url }}">{{ name }}</a></li>
+                    {% else %}
+                        <li>{{ name }}</li>
+                    {% endif %}
+                {% endfor %}
+            {% endblock -%}
         </ol></div>
 
         <div id="content" class="pagewidth">{% block content %}{% endblock %}</div>

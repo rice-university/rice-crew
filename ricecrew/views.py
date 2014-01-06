@@ -54,7 +54,8 @@ def login():
             return redirect(get_auth_redirect_url())
     else:
         form = LoginForm(csrf_context=session)
-    return render_template('login.html', form=form)
+    return render_template('login.html',
+                           form=form, breadcrumbs=[('Log In', None)])
 
 
 @app.route('/logout/')
@@ -64,7 +65,17 @@ def logout():
     return redirect(get_auth_redirect_url())
 
 
-# Model mixins
+# Mixins
+
+class BreadcrumbsMixin(object):
+    def get_breadcrumbs(self):
+        return getattr(self, 'breadcrumbs', [])
+
+    def get_template_context(self):
+        context = super(BreadcrumbsMixin, self).get_template_context()
+        context['breadcrumbs'] = self.get_breadcrumbs()
+        return context
+
 
 class BlogEntryMixin(object):
     model_class = BlogEntry
@@ -110,32 +121,55 @@ def blog():
         entries = entries.filter(BlogEntry.public == True)
     entries = entries.order_by(BlogEntry.timestamp.desc())[start:end]
 
-    return render_template(
-        'blog.html', page=page, max_page=max_page, entries=entries)
+    return render_template('blog.html',
+                           page=page, max_page=max_page, entries=entries,
+                           breadcrumbs=[('News', url_for('blog'))])
 
 
 @classroute('/news/<int:pk>/', 'entry_detail')
-class EntryDetailView(BlogEntryMixin, DetailView):
+class EntryDetailView(BlogEntryMixin, BreadcrumbsMixin, DetailView):
     template = 'entry_detail.html'
+
+    def get_breadcrumbs(self):
+        return [
+            ('News', url_for('blog')),
+            (self.model.title, url_for('entry_detail', pk=self.kwargs['pk']))
+        ]
 
 
 @classroute('/news/add/', 'entry_create', methods=['GET', 'POST'])
 @view_class_decorator(admin_required)
-class EntryCreateView(BlogEntryMixin, CreateView):
-    pass
+class EntryCreateView(BlogEntryMixin, BreadcrumbsMixin, CreateView):
+    def get_breadcrumbs(self):
+        return [
+            ('News', url_for('blog')),
+            ('Add BlogEntry', None)
+        ]
 
 
 @classroute('/news/<int:pk>/edit/', 'entry_update', methods=['GET', 'POST'])
 @view_class_decorator(admin_required)
-class EntryUpdateView(BlogEntryMixin, UpdateView):
-    pass
+class EntryUpdateView(BlogEntryMixin, BreadcrumbsMixin, UpdateView):
+    def get_breadcrumbs(self):
+        return [
+            ('News', url_for('blog')),
+            (self.model.title, url_for('entry_detail', pk=self.kwargs['pk'])),
+            ('Edit BlogEntry', None)
+        ]
 
 
 @classroute('/news/<int:pk>/delete/', 'entry_delete', methods=['GET', 'POST'])
 @view_class_decorator(admin_required)
-class EntryDeleteView(DeleteView):
+class EntryDeleteView(BreadcrumbsMixin, DeleteView):
     model_class = BlogEntry
     redirect_view = 'blog'
+
+    def get_breadcrumbs(self):
+        return [
+            ('News', url_for('blog')),
+            (self.model.title, url_for('entry_detail', pk=self.kwargs['pk'])),
+            ('Delete BlogEntry', None)
+        ]
 
     def get_redirect_context(self):
         return {}

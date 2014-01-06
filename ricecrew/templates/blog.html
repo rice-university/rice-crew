@@ -6,11 +6,6 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/image_resize.js') }}"></script>
 {% endblock %}
 
-{% block breadcrumbs %}
-    <li><a href="{{ url_for('index') }}">Home</a></li>
-    <li><a href="{{ url_for('blog') }}">News</a></li>
-{% endblock %}
-
 {% block content %}
     <div class="column threequartercol">
         {% if entries %}
