@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% import 'forms.html' as forms %}
+
+{% block title %}Edit {{ model.__class__.__name__ }} - {{ super() }}{% endblock %}
+
+{% block content %}
+    <div class="column">
+        <h1>Edit {{ model.__class__.__name__ }}</h1>
+
+        <form method="post">{{ forms.form(form) }}</form>
+    </div>
+{% endblock %}

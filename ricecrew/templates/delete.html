@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}Delete - {{ super() }}{% endblock %}
+{% block title %}Delete {{ model.__class__.__name__ }} - {{ super() }}{% endblock %}
 
 {% block content %}
     <div class="column">
-        <h1>Delete Item</h1>
+        <h1>Delete {{ model.__class__.__name__ }}</h1>
 
         <form method="post">
             {{ form.csrf_token }}
