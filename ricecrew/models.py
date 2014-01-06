@@ -7,16 +7,15 @@ from ricecrew.database import Base
 
 class PreviewParser(HTMLParser):
     '''
-    HTMLParser subclass for generating blog post previews
+    HTMLParser subclass for generating blog post previews. The get_preview()
+    method will generate a "preview" of a given piece of HTML which contains
+    at most the specified number of characters and images.
     '''
 
     def __init__(self, length, images):
         HTMLParser.__init__(self)
         self.length = length
         self.images = images
-        self.parts = []
-        self.stack = []
-        self.truncated = False
 
     def build_element(self, tag, attrs, close=False):
         fstr = '<{} {} />' if close else '<{} {}>'
@@ -27,12 +26,12 @@ class PreviewParser(HTMLParser):
             if self.images > 0:
                 self.parts.append(self.build_element(tag, attrs, startend))
                 self.images -= 1
-                self.stack.append(tag)
+                self.tag_stack.append(tag)
             else:
                 self.truncated = True
         elif self.length > 0:
             self.parts.append(self.build_element(tag, attrs, startend))
-            self.stack.append(tag)
+            self.tag_stack.append(tag)
         else:
             self.truncated  = True
 
@@ -43,8 +42,8 @@ class PreviewParser(HTMLParser):
         self.handle_start_or_startend(tag, attrs, True)
 
     def handle_endtag(self, tag):
-        if self.stack and self.stack[-1] == tag:
-            self.stack.pop()
+        if self.tag_stack and self.tag_stack[-1] == tag:
+            self.tag_stack.pop()
             self.parts.append('</{}>'.format(tag))
 
     def handle_data(self, data):
@@ -54,16 +53,19 @@ class PreviewParser(HTMLParser):
                 while not data[self.length - 1].isspace() and self.length > 1:
                     self.length -= 1
                 data = data[:self.length - 1].rstrip() + u'\u2026'
+                self.length = 0
+            else:
+                self.length -= len(data)
             self.parts.append(data)
-            self.length -= len(data)
         else:
             self.truncated = True
 
-    def run(self, data):
-        # Returns a 2-tuple: second value is a boolean indicating whether
-        # content was truncated
+    def get_preview(self, data):
+        self.parts = []
+        self.tag_stack = []
+        self.truncated = False
         self.feed(data)
-        return ''.join(self.parts), self.truncated
+        return (''.join(self.parts), self.truncated)
 
 
 class BlogEntry(Base):
@@ -83,9 +85,9 @@ class BlogEntry(Base):
         self.markup = markdown.markdown(
             self.body, output_format='xhtml5', safe_mode='escape')
 
-    def get_text_preview(self, length, images=0):
+    def get_preview(self, length, images=0):
         parser = PreviewParser(length, images)
-        return parser.run(self.markup)
+        return parser.get_preview(self.markup)
 
     def __repr__(self):
         return '<BlogEntry: {}>'.format(self.title)

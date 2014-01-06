@@ -20,7 +20,7 @@
     <div class="column twothirdcol{% if entry %} entry{% endif %}">
         {% if entry %}
             <h2><a href="{{ url_for('entry_detail', pk=entry.id) }}" class="quiet">{{ entry.title }}</a></h2>
-            {% set preview, truncated = entry.get_text_preview(500) %}
+            {% set preview, truncated = entry.get_preview(500) %}
             {{ preview|safe }}
             {% if truncated %}<p><a href="{{ url_for('entry_detail', pk=entry.id) }}">Continue Reading</a></p>{% endif %}
         {% else %}
