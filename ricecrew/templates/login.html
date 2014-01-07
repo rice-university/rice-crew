@@ -3,6 +3,10 @@
 
 {% block title %}Log In - {{ super() }}{% endblock %}
 
+{% block extrahead %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/form_focus.js') }}"></script>
+{% endblock %}
+
 {% block content %}
     <div class="column">
         <h1>Log In</h1>

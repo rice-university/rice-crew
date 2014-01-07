@@ -3,6 +3,10 @@
 
 {% block title %}Edit {{ model.__class__.__name__ }} - {{ super() }}{% endblock %}
 
+{% block extrahead %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/form_focus.js') }}"></script>
+{% endblock %}
+
 {% block content %}
     <div class="column">
         <h1>Edit {{ model.__class__.__name__ }}</h1>
