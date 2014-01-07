@@ -9,8 +9,7 @@
         {%- block extrahead %}{% endblock -%}
     </head>
     <body>
-        <nav id="mainnav">
-            <div class="pagewidth">
+        <nav id="mainnav"><div class="pagewidth">
                 <a id="homelink" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/R.svg') }}" /></a>
                 <ul class="nobullet">
                     <li><a href="{{ url_for('blog') }}">NEWS</a></li>
@@ -21,12 +20,11 @@
                         <a href="{{ url_for('login', next=request.path) }}">LOG IN</a>
                     {% endif %}</li>
                 </ul>
-            </div>
-        </nav>
+        </div></nav>
 
         {% block hero %}{% endblock %}
 
-        <div id="breadcrumbs" class="pagewidth"><ol>
+        <div id="breadcrumbs"><div class="pagewidth"><ol>
             {%- block breadcrumbs %}
                 <li><a href="{{ url_for('index') }}">Home</a></li>
                 {% for name, url in breadcrumbs %}
@@ -37,7 +35,7 @@
                     {% endif %}
                 {% endfor %}
             {% endblock -%}
-        </ol></div>
+        </ol></div></div>
 
         <div id="content" class="pagewidth">{% block content %}{% endblock %}</div>
     </body>

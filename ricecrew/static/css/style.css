@@ -57,16 +57,6 @@ ol.nobullet > li, ul.nobullet > li
     list-style-type: none;
 }
 
-ol.separate > li, ul.separate > li
-{
-    border-top: 0.0625em solid rgb(192,192,192);
-}
-
-ol.separate > li:first-child, ul.separate > li:first-child
-{
-    border-top: none;
-}
-
 
 /* links */
 
@@ -119,10 +109,22 @@ p.error, li.error
 
 /* misc element styles */
 
-p.separate
+div.separate, p.separate
 {
     border-top: 0.0625em solid rgb(192,192,192);
     padding-top: 1.5em;
+}
+
+ol.separate > li + li, ul.separate > li + li
+{
+    border-top: 0.0625em solid rgb(192,192,192);
+}
+
+a + a.separate, li + li.separate
+{
+    margin-left: 1.5em;
+    border-left: 0.0625em solid rgb(192,192,192);
+    padding-left: 1.5em;
 }
 
 
@@ -319,19 +321,19 @@ div#breadcrumbs
     overflow: hidden;
 }
 
-div#breadcrumbs > ol
+div#breadcrumbs ol
 {
     margin: 0.5em 0;
     padding-left: 0;
     overflow: hidden;
 }
 
-div#breadcrumbs > ol:empty
+div#breadcrumbs ol:empty
 {
     display: none;
 }
 
-div#breadcrumbs > ol > li
+div#breadcrumbs ol > li
 {
     position: relative;
     font-size: 0.75em;
@@ -341,7 +343,7 @@ div#breadcrumbs > ol > li
     float: left;
 }
 
-div#breadcrumbs > ol > li::before
+div#breadcrumbs ol > li::before
 {
     content: ">";
     position: absolute;
@@ -349,7 +351,7 @@ div#breadcrumbs > ol > li::before
     color: rgb(128,128,128);
 }
 
-div#breadcrumbs > ol > li:first-child::before
+div#breadcrumbs ol > li:first-child::before
 {
     display: none;
 }
