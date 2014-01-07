@@ -104,6 +104,13 @@ ul.form > li, ul.field > li
     list-style-type: none;
 }
 
+li.description
+{
+    font-size: 0.75em;
+    line-height: 2em;
+    color: rgb(160,160,160);
+}
+
 p.error, li.error
 {
     color: red;

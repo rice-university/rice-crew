@@ -25,7 +25,8 @@ class LoginForm(SecureForm):
 
 class BlogEntryForm(SecureForm):
     title = TextField(validators=[validators.InputRequired()])
-    body = TextAreaField(validators=[validators.InputRequired()])
+    body = TextAreaField(validators=[validators.InputRequired()],
+                         description='The body of the entry in Markdown format (see http://daringfireball.net/projects/markdown/)')
     public = BooleanField()
 
 

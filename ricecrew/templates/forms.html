@@ -8,6 +8,9 @@
         {% else %}
             <li><ul class="field">
                 <li>{{ field.label }}</li>
+                {% if field.description %}
+                    <li class="description">{{ field.description|urlize }}</li>
+                {% endif %}
                 <li>{{ field }}</li>
                 {% for error in field.errors %}
                     <li class="error">{{ error }}</li>
