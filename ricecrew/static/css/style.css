@@ -37,7 +37,7 @@ p
 
 /* lists */
 
-ul
+ul, ol
 {
     margin: 1.5em 0;
 }
@@ -84,12 +84,12 @@ a.quiet:hover
 
 /* forms */
 
-ul.form, ul.field
+ul.form, ol.field
 {
     padding-left: 0;
 }
 
-ul.form > li, ul.field > li
+ul.form > li, ol.field > li
 {
     list-style-type: none;
 }

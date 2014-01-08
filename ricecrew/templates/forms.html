@@ -6,7 +6,7 @@
                 <li class="error">{{ error }}</li>
             {% endfor %}
         {% else %}
-            <li><ul class="field">
+            <li><ol class="field">
                 <li>{{ field.label }}</li>
                 {% if field.description %}
                     <li class="description">{{ field.description|urlize }}</li>
@@ -15,7 +15,7 @@
                 {% for error in field.errors %}
                     <li class="error">{{ error }}</li>
                 {% endfor %}
-            </ul></li>
+            </ol></li>
         {% endif %}
     {% endfor %}</ul>
 
