@@ -19,7 +19,7 @@ $(document).ready(function() {
             setTimeout(function() {
                 currentPane.addClass('prev');
                 nextPane.removeClass('next');
-            }, 0);
+            }, 50);
             setTimeout(function() {
                 currentPane.remove();
             }, 1000);
@@ -37,7 +37,7 @@ $(document).ready(function() {
             setTimeout(function() {
                 currentPane.addClass('next');
                 prevPane.removeClass('prev');
-            }, 0);
+            }, 50);
             setTimeout(function() {
                 currentPane.remove();
             }, 1000);
