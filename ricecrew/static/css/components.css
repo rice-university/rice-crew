@@ -9,10 +9,7 @@ nav#mainnav
 
 nav#mainnav a
 {
-    padding: 0.25em 0.5em;
-    border-radius: 0.25em;
     color: white;
-    font-weight: 300;
 }
 
 nav#mainnav a:hover
@@ -35,14 +32,8 @@ a#homelink > img
 
 nav#mainnav ul
 {
-    margin: 1em 0 1em 1em;
+    margin: 0.75em 1em;
     float: right;
-}
-
-nav#mainnav ul > li
-{
-    margin-right: 1em;
-    float: left;
 }
 
 
@@ -60,10 +51,9 @@ div#hero
     max-width: 2000px;
     height: 492px;
     position: relative;
-    top: -35px;
+    top: 0;
     margin: 0 auto;
     overflow: hidden;
-    background-color: rgb(32,32,32);
 }
 
 div#hero > img
@@ -161,6 +151,44 @@ a#heronext
     right: 0;
 }
 
+@media not all and (min-width: 768px) {
+
+    div#herowrapper
+    {
+        height: 190px;
+    }
+
+    div#hero
+    {
+        max-width: 1000px;
+        height: 246px;
+    }
+
+    div#hero > img
+    {
+        height: 246px;
+        left: -512px;
+    }
+
+    div#hero > img.next
+    {
+        left: -500px;
+    }
+
+    div#hero > img.prev
+    {
+        left: -524px;
+    }
+
+    div#herobuttons
+    {
+        position: relative;
+        top: -246px;
+        height: 190px;
+    }
+
+}
+
 
 /* breadcrumbs */
 
@@ -173,7 +201,7 @@ div#breadcrumbs
 div#breadcrumbs ol
 {
     margin: 0.5em 0;
-    padding-left: 0;
+    padding: 0 1.5em;
     overflow: hidden;
 }
 
@@ -188,23 +216,31 @@ div#breadcrumbs ol > li
     font-size: 0.75em;
     line-height: 1.5em;
     list-style-type: none;
-    padding-left: 2em;
     float: left;
 }
 
-div#breadcrumbs ol > li::before
+div#breadcrumbs ol > li
+{
+    padding-right: 2em;
+}
+
+div#breadcrumbs ol > li::after
 {
     content: ">";
     position: absolute;
-    left: 0.75em;
+    right: 0.75em;
     color: rgb(128,128,128);
 }
 
-div#breadcrumbs ol > li:first-child::before
+div#breadcrumbs ol > li:last-child
+{
+    padding-right: 0;
+}
+
+div#breadcrumbs ol > li:last-child::after
 {
     display: none;
 }
-
 
 /* blog */
 

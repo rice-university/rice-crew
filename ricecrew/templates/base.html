@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>{% block title %}Rice Crew{% endblock %}</title>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/normalize.css') }}" />
         <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Merriweather|Open+Sans:400,300' />
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}" />
@@ -10,34 +11,36 @@
         {%- block extrahead %}{% endblock -%}
     </head>
     <body>
-        <nav id="mainnav"><div class="pagewidth">
-                <a id="homelink" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/R.svg') }}" /></a>
-                <ul class="nobullet">
-                    <li><a href="{{ url_for('blog') }}">NEWS</a></li>
-                    <li><a href="{{ url_for('about') }}">ABOUT</a></li>
-                    <li>{% if has_login() %}
-                        <a href="{{ url_for('logout', next=request.path) }}">LOG OUT</a>
-                    {% else %}
-                        <a href="{{ url_for('login', next=request.path) }}">LOG IN</a>
-                    {% endif %}</li>
-                </ul>
-        </div></nav>
+        <header>
+            <nav id="mainnav"><div class="pagewidth">
+                    <a id="homelink" class="button" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/R.svg') }}" /></a>
+                    <ul class="nobullet horizontal">
+                        <li><a class="button" href="{{ url_for('blog') }}">NEWS</a></li>
+                        <li><a class="button" href="{{ url_for('about') }}">ABOUT</a></li>
+                        <li>{% if has_login() %}
+                            <a class="button" href="{{ url_for('logout', next=request.path) }}">LOG OUT</a>
+                        {% else %}
+                            <a class="button" href="{{ url_for('login', next=request.path) }}">LOG IN</a>
+                        {% endif %}</li>
+                    </ul>
+            </div></nav>
 
-        {% block hero %}{% endblock %}
+            {% block hero %}{% endblock %}
 
-        <div id="breadcrumbs"><div class="pagewidth"><ol>
-            {%- block breadcrumbs %}
-                <li><a href="{{ url_for('index') }}">Home</a></li>
-                {% for name, url in breadcrumbs %}
-                    {% if url %}
-                        <li><a href="{{ url }}">{{ name }}</a></li>
-                    {% else %}
-                        <li>{{ name }}</li>
-                    {% endif %}
-                {% endfor %}
-            {% endblock -%}
-        </ol></div></div>
+            <div id="breadcrumbs"><div class="pagewidth"><ol>
+                {%- block breadcrumbs %}
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    {% for name, url in breadcrumbs %}
+                        {% if url %}
+                            <li><a href="{{ url }}">{{ name }}</a></li>
+                        {% else %}
+                            <li>{{ name }}</li>
+                        {% endif %}
+                    {% endfor %}
+                {% endblock -%}
+            </ol></div></div>
+        </header>
 
-        <div id="content" class="pagewidth">{% block content %}{% endblock %}</div>
+        <main class="pagewidth">{% block content %}{% endblock %}</main>
     </body>
 </html>

@@ -57,6 +57,21 @@ ol.nobullet > li, ul.nobullet > li
     list-style-type: none;
 }
 
+ul.horizontal
+{
+    overflow: hidden;
+}
+
+ul.horizontal > li
+{
+    float: left;
+}
+
+ul.horizontal > li + li
+{
+    margin-left: 0.5em;
+}
+
 
 /* links */
 
@@ -79,6 +94,21 @@ a.quiet
 a.quiet:hover
 {
     color: rgb(160,160,160);
+}
+
+a.button
+{
+    display: block;
+    padding: 0.25em 0.5em;
+    border-radius: 0.25em;
+    color: rgb(160,160,160);
+    font-weight: 300;
+}
+
+a.button:hover
+{
+    background-color: rgb(160,160,160);
+    color: white;
 }
 
 
@@ -106,87 +136,141 @@ p.error, li.error
     color: red;
 }
 
+textarea
+{
+    width: 100%;
+    height: 16em;
+}
+
 
 /* misc element styles */
 
-div.separate, p.separate
-{
-    border-top: 0.0625em solid rgb(192,192,192);
-    padding-top: 1.5em;
-}
-
-ol.separate > li + li, ul.separate > li + li
+.separate-top
 {
     border-top: 0.0625em solid rgb(192,192,192);
 }
 
-a + a.separate, li + li.separate
+.separate-bottom
 {
-    margin-left: 1.5em;
-    border-left: 0.0625em solid rgb(192,192,192);
-    padding-left: 1.5em;
+    border-bottom: 0.0625em solid rgb(192,192,192);
+}
+
+ol.separate-children > li + li, ul.separate-children > li + li
+{
+    border-top: 0.0625em solid rgb(192,192,192);
+}
+
+.buttonoffset
+{
+    margin-left: -0.5em;
 }
 
 
 /* page structure */
 
-div.pagewidth
+.pagewidth
 {
     max-width: 1280px;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-div.extrawidth
+.extrawidth
 {
     max-width: 1680px;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-div#content
+main
 {
-    margin: 1.5em auto;
-    overflow: hidden;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    -o-justify-content: center;
+    justify-content: center;
 }
 
-div.column
+div.column.primary
 {
-    padding: 0 1.5em;
-    border-left: 0.0625em solid rgb(192,192,192);
-    float: left;
-    box-sizing: border-box;
+    -webkit-flex: 0 2 768px;
+    -moz-flex: 0 2 768px;
+    -ms-flex: 0 2 768px;
+    -o-flex: 0 2 768px;
+    flex: 0 2 768px;
 }
 
-div.column:first-child
+div.column.secondary
 {
-    border-left: none;
+    -webkit-flex: 0 3 512px;
+    -moz-flex: 0 3 512px;
+    -ms-flex: 0 3 512px;
+    -o-flex: 0 3 512px;
+    flex: 0 3 512px;
 }
 
-div.column > :first-child
-{
-    margin-top: 0;
+@media all and (min-width: 768px) {
+
+    main, main.pagewidth
+    {
+        margin: 1.5em auto;
+    }
+
+    div.column
+    {
+        padding: 0 1.5em;
+    }
+
+    div.column > :first-child
+    {
+        margin-top: 0;
+    }
+
+    div.column + div.column
+    {
+        border-left: 0.0625em solid rgb(192,192,192);
+    }
+
 }
 
-div.threequartercol
-{
-    width: 75%;
-}
+@media not all and (min-width: 768px) {
 
-div.halfcol
-{
-    width: 50%;
-}
+    main
+    {
+        -webkit-flex-wrap: wrap;
+        -moz-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        -o-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
 
-div.quartercol
-{
-    width: 25%;
-}
+    main, main.pagewidth
+    {
+        margin: 0 1.5em;
+    }
 
-div.twothirdcol
-{
-    width: 66.6%;
-}
+    div.column.primary, div.column.secondary
+    {
+        -webkit-flex: 0 0 100%;
+        -moz-flex: 0 0 100%;
+        -ms-flex: 0 0 100%;
+        -o-flex: 0 0 100%;
+        flex: 0 0 100%;
+    }
 
-div.thirdcol
-{
-    width: 33.3%;
+    div.column + div.column
+    {
+        border-top: 0.0625em solid rgb(192,192,192);
+    }
+
+    textarea
+    {
+        height: 10em;
+    }
+
 }

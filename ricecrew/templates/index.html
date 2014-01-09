@@ -17,7 +17,7 @@
 {% block breadcrumbs %}{% endblock %}
 
 {% block content %}
-    <div class="column twothirdcol{% if entry %} entry{% endif %}">
+    <div class="column primary{% if entry %} entry{% endif %}">
         {% if entry %}
             <h2><a href="{{ url_for('entry_detail', pk=entry.id) }}" class="quiet">{{ entry.title }}</a></h2>
             {% set preview, truncated = entry.get_preview(500) %}
@@ -29,8 +29,9 @@
         {% endif %}
     </div>
 
-    <div class="column thirdcol">
-        <h2><a href="{{ url_for('recruiting') }}" class="quiet">We're recruiting!</a></h2>
-        <p>Do you sometimes wake up at six in the morning and glance wistfully towards the nearest body of water without knowing why? We can help! Visit our <a href="{{ url_for('recruiting') }}">recruiting page</a> for more information.</p>
+    <div class="column secondary">
+        <h2><a href="{{ url_for('recruiting') }}" class="quiet">Join us!</a></h2>
+
+        <p>If you're interested in the sport, we'd love to talk to you. Visit our <a href="{{ url_for('recruiting') }}">recruiting page</a> for more information.</p>
     </div>
 {% endblock %}

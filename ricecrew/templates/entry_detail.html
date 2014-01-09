@@ -7,17 +7,19 @@
 {% endblock %}
 
 {% block content %}
-    <div class="column threequartercol entry">
+    <div class="column primary entry">
+        {% if has_admin() %}
+            <ul class="nobullet horizontal buttonoffset">
+                <li><a class="button" href="{{ url_for('entry_update', pk=model.id) }}">EDIT POST</a></li>
+                <li><a class="button" href="{{ url_for('entry_delete', pk=model.id) }}">DELETE POST</a></li>
+            </ul>
+            <div class="separate-top">
+        {% endif %}
+
         <h1>{{ model.title }}</h1>
         <p class="byline">{{ localtime(model.timestamp).strftime('%B %d, %Y at %I:%M %p') }}</p>
         {{ model.markup|safe }}
-    </div>
 
-    {% if has_admin() %}<div class="column quartercol">
-        <h2>Admin options</h2>
-        <ul class="nobullet">
-            <li><a href="{{ url_for('entry_update', pk=model.id) }}">Edit this post</a></li>
-            <li><a href="{{ url_for('entry_delete', pk=model.id) }}">Delete this post</a></li>
-        </ul>
-    </div>{% endif %}
+        {% if has_admin() %}</div>{% endif %}
+    </div>
 {% endblock %}

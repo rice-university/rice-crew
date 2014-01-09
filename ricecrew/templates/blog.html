@@ -7,9 +7,16 @@
 {% endblock %}
 
 {% block content %}
-    <div class="column threequartercol">
+    <div class="column primary">
+        {% if has_admin() %}
+            <ul class="nobullet horizontal buttonoffset">
+                <li><a class="button" href="{{ url_for('entry_create') }}">ADD POST</a></li>
+            </ul>
+            <div class="separate-top">
+        {% endif %}
+
         {% if entries %}
-            <ol class="separate nobullet">{% for entry in entries %}
+            <ol class="separate-children nobullet">{% for entry in entries %}
                 <li class="entry">
                     <h1><a href="{{ url_for('entry_detail', pk=entry.id) }}" class="quiet">{{ entry.title }}</a></h1>
                     <p class="byline">{{ localtime(entry.timestamp).strftime('%B %d, %Y at %I:%M %p') }}</p>
@@ -22,15 +29,13 @@
             <p>There is no news to display.</p>
         {% endif %}
 
+        {% if has_admin() %}</div>{% endif %}
+
         {% if page > 1 or page < max_page %}
-            <p class="separate">{% if page > 1 %}<a href="{{ url_for('blog', page=page-1) }}">Newer posts</a>{% endif %} {% if page < max_page %}<a class="separate" href="{{ url_for('blog', page=page+1) }}">Older posts</a>{% endif %}</p>
+            <div class="separate"><ul class="nobullet horizontal buttonoffset">
+                {% if page > 1 %}<li><a class="button" href="{{ url_for('blog', page=page-1) }}">NEWER POSTS</a></li>{% endif %}
+                {% if page < max_page %}<li><a class="button" href="{{ url_for('blog', page=page+1) }}">OLDER POSTS</a></li>{% endif %}
+            </ul></div>
         {% endif %}
     </div>
-
-    {% if has_admin() %}<div class="column quartercol">
-        <h2>Admin options</h2>
-        <ul class="nobullet">
-            <li><a href="{{ url_for('entry_create') }}">New post</a></li>
-        </ul>
-    </div>{% endif %}
 {% endblock %}
