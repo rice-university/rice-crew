@@ -76,6 +76,15 @@ div#hero > img
     transition-duration: 0.75s;
 }
 
+div#hero.manual-transition > img
+{
+    -webkit-transition-duration: 0s;
+    -moz-transition-duration: 0s;
+    -ms-transition-duration: 0s;
+    -o-transition-duration: 0s;
+    transition-duration: 0s;
+}
+
 div#hero > img.next
 {
     left: -1000px;
