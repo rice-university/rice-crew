@@ -13,14 +13,14 @@
     <body>
         <header>
             <nav id="mainnav"><div class="pagewidth">
-                    <a id="homelink" class="button" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/R.svg') }}" /></a>
+                    <a id="homelink" class="capsule" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/R.svg') }}" /></a>
                     <ul class="nobullet horizontal">
-                        <li><a class="button" href="{{ url_for('blog') }}">NEWS</a></li>
-                        <li><a class="button" href="{{ url_for('about') }}">ABOUT</a></li>
+                        <li><a class="capsule" href="{{ url_for('blog') }}">NEWS</a></li>
+                        <li><a class="capsule" href="{{ url_for('about') }}">ABOUT</a></li>
                         <li>{% if has_login() %}
-                            <a class="button" href="{{ url_for('logout', next=request.path) }}">LOG OUT</a>
+                            <a class="capsule" href="{{ url_for('logout', next=request.path) }}">LOG OUT</a>
                         {% else %}
-                            <a class="button" href="{{ url_for('login', next=request.path) }}">LOG IN</a>
+                            <a class="capsule" href="{{ url_for('login', next=request.path) }}">LOG IN</a>
                         {% endif %}</li>
                     </ul>
             </div></nav>

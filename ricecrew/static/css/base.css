@@ -72,6 +72,13 @@ ul.horizontal > li + li
     margin-left: 0.5em;
 }
 
+ul.capsuleoffset
+{
+    margin-left: -0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
 
 /* links */
 
@@ -96,7 +103,7 @@ a.quiet:hover
     color: rgb(160,160,160);
 }
 
-a.button
+a.capsule
 {
     display: block;
     padding: 0.25em 0.5em;
@@ -105,7 +112,7 @@ a.button
     font-weight: 300;
 }
 
-a.button:hover
+a.capsule:hover
 {
     background-color: rgb(160,160,160);
     color: white;
@@ -136,10 +143,23 @@ p.error, li.error
     color: red;
 }
 
+input[type="text"], input[type="password"], textarea
+{
+    padding: 0.75em;
+    border: 0.0625em solid rgb(192,192,192);
+    border-radius: 0.25em;
+}
+
 textarea
 {
     width: 100%;
-    height: 16em;
+    height: 15em;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 
@@ -158,11 +178,6 @@ textarea
 ol.separate-children > li + li, ul.separate-children > li + li
 {
     border-top: 0.0625em solid rgb(192,192,192);
-}
-
-.buttonoffset
-{
-    margin-left: -0.5em;
 }
 
 
@@ -270,7 +285,7 @@ div.column.secondary
 
     textarea
     {
-        height: 10em;
+        height: 9em;
     }
 
 }
