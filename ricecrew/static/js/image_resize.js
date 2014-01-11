@@ -73,12 +73,15 @@ $(document).ready(function() {
 
     } else {
         var entryWidth = $('.entry').width();
+        var tempElement = $('<p>test</p>').appendTo('body');
+        var emSize = tempElement.height() / 1.5;
+        tempElement.remove();
 
         images.each(function() {
             var self = $(this);
             self.on('mouseover', function() {
                 if (this.naturalWidth > entryWidth ||
-                        this.naturalHeight > 240) {
+                        this.naturalHeight > 15 * emSize) {
                     self.addClass('expandable');
                 } else {
                     self.removeClass('expandable');

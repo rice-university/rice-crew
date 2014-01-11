@@ -267,7 +267,7 @@ li.entry:first-child > :first-child
 .entry img
 {
     max-width: 100%;
-    max-height: 240px;
+    max-height: 15em;
 
     -webkit-transition-property: -webkit-transform;
     -moz-transition-property: -moz-transform;
