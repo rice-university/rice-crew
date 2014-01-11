@@ -1,7 +1,6 @@
 $(document).ready(function() {
     var hero = $('div#hero');
     var images = hero.data('images');
-    var touchSupported = 'ontouchend' in document;
 
     if (!images) {
         return;
@@ -57,14 +56,11 @@ $(document).ready(function() {
 
     var enableUserControl;
 
-    if (touchSupported) {
+    if (util.touchSupported) {
         var prevPane, currentPane, nextPane;
         var imageWidth = 2000, imageHeight = 492, transitionWidth = 48;
         var movementScale = 6.0;
         var removalTimeout;
-        var clamp = function(x, min, max) {
-            return x < min ? min : (x > max ? max : x);
-        };
 
         var handleDragStart = function(event) {
             clearTimeout(transitionTimeout);
@@ -85,12 +81,12 @@ $(document).ready(function() {
                 .attr('src', images[next]).appendTo(hero);
         };
         var handleDrag = function(event) {
-            var imageScale = hero.height() < imageHeight ? 0.5 : 1.0;
-            var delta = clamp(event.gesture.deltaX /
+            var imageScale = (hero.height() < imageHeight) ? 0.5 : 1.0;
+            var delta = util.clamp(event.gesture.deltaX /
                     (transitionWidth * imageScale * movementScale),
                 -1.0, 1.0);
-            var prevDelta = clamp(delta, 0.0, 1.0),
-                nextDelta = clamp(delta, -1.0, 0.0);
+            var prevDelta = util.clamp(delta, 0.0, 1.0),
+                nextDelta = util.clamp(delta, -1.0, 0.0);
 
             prevPane.css({
                 left: ((-imageWidth + (prevDelta - 2) * transitionWidth) *
@@ -109,8 +105,8 @@ $(document).ready(function() {
             });
         };
         var handleDragEnd = function(event) {
-            var imageScale = hero.height() < imageHeight ? 0.5 : 1.0;
-            var delta = clamp(event.gesture.deltaX /
+            var imageScale = (hero.height() < imageHeight) ? 0.5 : 1.0;
+            var delta = util.clamp(event.gesture.deltaX /
                     (transitionWidth * imageScale * movementScale),
                 -1.0, 1.0);
 
@@ -165,7 +161,7 @@ $(document).ready(function() {
 
 
     // Set up parallax effect
-    if (!touchSupported) {
+    if (!util.touchSupported) {
         var navHeight = $('nav#mainnav').height();
         $(window).on('scroll', function() {
             var offset = (window.pageYOffset - navHeight) / 2;
