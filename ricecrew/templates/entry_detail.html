@@ -3,6 +3,8 @@
 {% block title %}{{ model.title }} - {{ super() }}{% endblock %}
 
 {% block extrahead %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/hammer.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/util.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/image_resize.js') }}"></script>
 {% endblock %}
 

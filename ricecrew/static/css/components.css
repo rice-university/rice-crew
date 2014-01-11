@@ -267,7 +267,19 @@ li.entry:first-child > :first-child
 .entry img
 {
     max-width: 100%;
-    max-height: 15em;
+    max-height: 240px;
+
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -ms-transition-property: -ms-transform;
+    -o-transition-property: -o-transform;
+    transition-property: transform;
+
+    -webkit-transition-duration: 0.25s;
+    -moz-transition-duration: 0.25s;
+    -ms-transition-duration: 0.25s;
+    -o-transition-duration: 0.25s;
+    transition-duration: 0.25s;
 }
 
 .entry img.expandable:hover
@@ -279,4 +291,13 @@ li.entry:first-child > :first-child
 {
     max-height: none;
     opacity: 1;
+}
+
+.entry img.manual-transition
+{
+    -webkit-transition-duration: 0s;
+    -moz-transition-duration: 0s;
+    -ms-transition-duration: 0s;
+    -o-transition-duration: 0s;
+    transition-duration: 0s;
 }
