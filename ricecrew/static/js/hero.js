@@ -148,14 +148,8 @@ $(document).ready(function() {
         };
     } else {
         enableUserControl = function() {
-            prevBtn.on('click', function(event) {
-                event.preventDefault();
-                transitionBack();
-            }).show();
-            nextBtn.on('click', function(event) {
-                event.preventDefault();
-                transitionForward();
-            }).show();
+            prevBtn.on('click', transitionBack).show();
+            nextBtn.on('click', transitionForward).show();
         };
     }
 

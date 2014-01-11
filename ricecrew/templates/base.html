@@ -2,18 +2,32 @@
 <html>
     <head>
         <title>{% block title %}Rice Crew{% endblock %}</title>
+
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/normalize.css') }}" />
         <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Merriweather|Open+Sans:400,300' />
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/base.css') }}" />
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/components.css') }}" />
+
         <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.0.3.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/hammer.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/util.js') }}"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var menu = $('nav#mainnav ul'), toggleFunc = function() { menu.toggleClass('expanded'); };
+                if (util.touchSupported) Hammer(document.getElementById('menulink')).on('tap', toggleFunc);
+                else $('a#menulink').on('click', toggleFunc);
+            });
+        </script>
+
         {%- block extrahead %}{% endblock -%}
     </head>
     <body>
         <header>
             <nav id="mainnav"><div class="pagewidth">
                     <a id="homelink" class="capsule" href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/R.svg') }}" /></a>
+                    <a id="menulink" class="capsule"><img src="{{ url_for('static', filename='img/menu.svg') }}" /></a>
                     <ul class="nobullet horizontal">
                         <li><a class="capsule" href="{{ url_for('blog') }}">NEWS</a></li>
                         <li><a class="capsule" href="{{ url_for('about') }}">ABOUT</a></li>

@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 
 {% block extrahead %}
-    <script type="text/javascript" src="{{ url_for('static', filename='js/hammer.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/util.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/hero.js') }}"></script>
 {% endblock %}
 
@@ -10,8 +8,8 @@
     <div id="herowrapper">
         <div id="hero" data-images="{{ url_for('static', filename='img/hero1.jpg') }};{{ url_for('static', filename='img/hero2.jpg') }};{{ url_for('static', filename='img/hero3.jpg') }}"></div>
         <div id="herobuttons" class="extrawidth">
-            <a id="heroprev" href="#"></a>
-            <a id="heronext" href="#"></a>
+            <a id="heroprev"></a>
+            <a id="heronext"></a>
         </div>
     </div>
 {% endblock %}

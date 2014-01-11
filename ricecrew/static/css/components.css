@@ -30,10 +30,64 @@ a#homelink > img
     display: block;
 }
 
+a#menulink
+{
+    display: none;
+    margin: 0.5em 1em;
+    padding: 0;
+    float: right;
+}
+
+a#menulink > img
+{
+    height: 2.5em;
+    display: block;
+}
+
 nav#mainnav ul
 {
     margin: 0.75em 1em;
     float: right;
+}
+
+@media not all and (min-width: 768px) {
+
+    a#menulink
+    {
+        display: block;
+    }
+
+    nav#mainnav ul
+    {
+        float: none;
+        clear: both;
+        margin: 0;
+        padding: 0 1em;
+        background-color: rgb(64,64,64);
+        display: none;
+    }
+
+    nav#mainnav ul.expanded
+    {
+        display: block;
+    }
+
+    nav#mainnav ul > li
+    {
+        float: none;
+        margin: 1.5em 0;
+    }
+
+    nav#mainnav ul a
+    {
+        display: inline;
+    }
+
+    nav#mainnav ul a:hover
+    {
+        background-color: rgb(160,160,160);
+    }
+
 }
 
 
