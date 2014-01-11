@@ -168,7 +168,7 @@ $(document).ready(function() {
             hero.css('top', offset + 'px');
         });
     } else {
-        hero.css('top', '0');
+        hero.css('top', (-navHeight / 2) + 'px');
     }
 
 

@@ -51,7 +51,7 @@ div#hero
     max-width: 2000px;
     height: 492px;
     position: relative;
-    top: 0;
+    top: -28px;
     margin: 0 auto;
     overflow: hidden;
 }
