@@ -181,7 +181,48 @@ ol.separate-children > li + li, ul.separate-children > li + li
 }
 
 
-/* page structure */
+/* vertical page structure */
+
+html, body
+{
+    height: 100%;
+}
+
+body
+{
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -o-flex-direction: column;
+    flex-direction: column;
+}
+
+header, main, footer
+{
+    -webkit-flex-shrink: 0;
+    -moz-flex-shrink: 0;
+    -ms-flex-shrink: 0;
+    -o-flex-shrink: 0;
+    flex-shrink: 0;
+}
+
+main
+{
+    -webkit-flex-grow: 1;
+    -moz-flex-grow: 1;
+    -ms-flex-grow: 1;
+    -o-flex-grow: 1;
+    flex-grow: 1;
+}
+
+
+/* horizontal page structure */
 
 .pagewidth
 {
@@ -204,6 +245,7 @@ main
     display: -ms-flex;
     display: -o-flex;
     display: flex;
+
     -webkit-justify-content: center;
     -moz-justify-content: center;
     -ms-justify-content: center;
@@ -229,6 +271,9 @@ div.column.secondary
     flex: 0 3 512px;
 }
 
+
+/* responsive layout */
+
 @media all and (min-width: 768px) {
 
     main, main.pagewidth
@@ -244,6 +289,11 @@ div.column.secondary
     div.column > :first-child
     {
         margin-top: 0;
+    }
+
+    div.column > :last-child
+    {
+        margin-bottom: 0;
     }
 
     div.column + div.column

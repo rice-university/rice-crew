@@ -305,6 +305,43 @@ div#breadcrumbs ol > li:last-child::after
     display: none;
 }
 
+
+/* footer */
+
+footer
+{
+    background-color: rgb(64,64,64);
+    overflow: hidden;
+}
+
+footer ul
+{
+    padding: 0 1.5em;
+}
+
+footer ul > li
+{
+    list-style-type: none;
+}
+
+footer a
+{
+    color: rgb(160,160,160);
+}
+
+footer a > svg
+{
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: top;
+}
+
+footer a:hover g, footer a:hover path
+{
+    fill: rgb(128,170,255);
+}
+
+
 /* blog */
 
 p.byline
