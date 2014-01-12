@@ -24,8 +24,9 @@ a#homelink
     float: left;
 }
 
-a#homelink > img
+a#homelink > svg
 {
+    width: 1.649em;
     height: 2em;
     display: block;
 }
@@ -38,8 +39,9 @@ a#menulink
     float: right;
 }
 
-a#menulink > img
+a#menulink > svg
 {
+    width: 2.5em;
     height: 2.5em;
     display: block;
 }
@@ -167,7 +169,7 @@ a#heroprev, a#heronext
     bottom: 0;
     opacity: 0;
 
-    background-image: url(../img/arrow.svg);
+    background-image: url(data:image/svg+xml;charset=utf-8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+DQo8c3ZnIHdpZHRoPSI2MHB4IiBoZWlnaHQ9IjEwMHB4IiB2aWV3Qm94PSIwIDAgNjAgMTAwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnNrZXRjaD0iaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoL25zIj4NCiAgICA8ZGVmcz48L2RlZnM+DQogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc2tldGNoOnR5cGU9Ik1TUGFnZSI+DQogICAgICAgIDxwYXRoIGQ9Ik0xMCwwIEw2MCw1MCBMMTAsMTAwIEwwLDkwIEw0MCw1MCBMMCwxMCBMMTAsMCBaIiBpZD0iUGF0aC0xIiBmaWxsPSIjRkZGRkZGIiBza2V0Y2g6dHlwZT0iTVNTaGFwZUdyb3VwIj48L3BhdGg+DQogICAgPC9nPg0KPC9zdmc+DQo=);
     background-repeat: no-repeat;
     background-position: 50% 50%;
 
