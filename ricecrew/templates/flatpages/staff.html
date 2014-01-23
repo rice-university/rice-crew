@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Coaching Staff - {{ super() }}{% endblock %}
+
+{% block breadcrumbs %}
+    <li><a href="{{ url_for('index') }}">Home</a></li>
+    <li><a href="{{ url_for('about') }}">About</a></li>
+    <li><a href="{{ url_for('about') }}">Coaching Staff</a></li>
+{% endblock %}
+
+{% block content %}
+    <div class="column primary">
+        <h1>Coaching Staff</h1>
+        <ul class="nobullet">
+            <li>
+                <h2>Michael Matson</h2>
+                <p>A local Houstonian, Mike Matson had never experienced rowing until his first summer at the United States Naval Academy. During "Plebe Summer," all incoming freshmen pull a 500-m piece for time. Pulling sub-1:25, he was invited to join the freshmen team and later the JV team as he rowed with Navy for 3 years. Mike has been volunteering with Rice Crew since he started graduate school in the Dept of Chemistry in 2006. You can find Mike screaming at rowers (either at Rice or many of the instructional clinics he coaches around town), passed out on the floor at Atomic CrossFit, or at the zoo with his wife, Samantha, and kids, Morgan and Cooper.</p>
+            </li>
+            <li>
+                <h2>David Alviar</h2>
+                <p>David Alviar began rowing as sophomore at the University of Texas at Austin.  Though beginning as a bow seat, David transitioned to stroking the varsity 8+ a year after joining the team.  Racing and medalling across the country at regattas such as the Crew Classic, Head of the Charles, Head of the Hooch, Canadian Henley, and ECACs, David earned enough experience to begin coaching junior novices at Texas Rowing Center in 2007 until graduating from UT in 2009.  David subsequently spent three years teaching as a Teach for America 2009 corps member in his hometown of Houston and has since joined Rice University to assist in development of STEMscopes, a K-12 science curriculum.  David spends his free time checking national parks off his list of travel locations, biking, and producing fast Rice rowers.</p>
+            </li>
+        </ul>
+        <p>The team receives additional coaching assistance from Rishi Singh (Greater Houston Rowing Club), Greg Wood (Bay Area Rowing Club), and Hannes Hofer (Club Sponsor).</p>
+    </div>
+{% endblock %}

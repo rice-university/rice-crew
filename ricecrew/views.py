@@ -185,5 +185,9 @@ app.add_url_rule(
     View.as_view(template='flatpages/recruiting.html'))
 
 app.add_url_rule(
+    '/about/staff/', 'staff',
+    View.as_view(template='flatpages/staff.html'))
+
+app.add_url_rule(
     '/about/history/', 'history',
     View.as_view(template='flatpages/history.html'))
