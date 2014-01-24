@@ -1,10 +1,21 @@
 $(document).ready(function() {
-    var hero = $('div#hero');
-    var images = hero.data('images');
+    var hero = $('div#hero'), images;
+
+    /* We don't need to load 2x images if the window is less than 768px
+       wide since the hero image is scaled down by a factor of 2 for
+       smaller widths */
+
+    if (util.retinaSupported &&
+            (window.devicePixelRatio > 2 || $(window).width() >= 768)) {
+        images = hero.data('images-retina');
+    } else {
+        images = hero.data('images');
+    }
 
     if (!images) {
         return;
     }
+    images = images.split(';');
 
 
     // Set up hero transitions
@@ -54,11 +65,11 @@ $(document).ready(function() {
         }, 1000);
     };
 
-    var enableUserControl;
+    var enableControlsCallback;
 
     if (util.touchSupported) {
         var prevPane, currentPane, nextPane;
-        var imageWidth = 2000, imageHeight = 492, transitionWidth = 48;
+        var imageWidth = 2560, imageHeight = 500, transitionWidth = 32;
         var movementScale = 6.0;
         var removalTimeout;
 
@@ -138,7 +149,7 @@ $(document).ready(function() {
                                            transitionInterval);
         };
 
-        enableUserControl = function() {
+        enableControlsCallback = function() {
             Hammer(document.getElementById('herowrapper'), {
                 drag_block_horizontal: true,
                 drag_block_vertical: true
@@ -147,7 +158,7 @@ $(document).ready(function() {
             .on('dragend', handleDragEnd);
         };
     } else {
-        enableUserControl = function() {
+        enableControlsCallback = function() {
             prevBtn.on('click', transitionBack).show();
             nextBtn.on('click', transitionForward).show();
         };
@@ -167,29 +178,27 @@ $(document).ready(function() {
 
 
     // Download hero images sequentially
-    images = images.split(';');
-    var getNext = function() {
+    var loadNext = function() {
         jQuery.ajax({
             url: images[loaded],
             success: function() {
                 loaded += 1;
-                if (loaded < images.length) {
-                    getNext();
-                }
                 if (loaded === 1) {
                     transitionForward();
                 }
                 if (loaded === 2) {
-                    enableUserControl();
+                    enableControlsCallback();
                 }
             },
             error: function() {
                 images.splice(loaded, 1);
+            },
+            complete: function() {
                 if (loaded < images.length) {
-                    getNext();
+                    loadNext();
                 }
             }
         });
     };
-    getNext();
+    loadNext();
 });

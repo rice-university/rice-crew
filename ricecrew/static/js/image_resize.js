@@ -24,6 +24,9 @@ $(document).ready(function() {
                 self.addClass('manual-transition');
                 maxScale = Math.min(this.naturalWidth / self.width(),
                                     this.naturalHeight / self.height());
+                if (util.retinaSupported) {
+                    maxScale = maxScale / window.devicePixelRatio;
+                }
             };
             var handleRelease = function() {
                 self.removeClass('manual-transition');

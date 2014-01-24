@@ -6,8 +6,11 @@
 
 {% block hero %}
     <div id="herowrapper">
-        <div id="hero" data-images="{{ url_for('static', filename='img/hero1.jpg') }};{{ url_for('static', filename='img/hero2.jpg') }};{{ url_for('static', filename='img/hero3.jpg') }}"></div>
-        <div id="herobuttons" class="extrawidth">
+        <div id="hero"
+            data-images="{{ url_for('static', filename='img/hero1.jpg') }};{{ url_for('static', filename='img/hero2.jpg') }};{{ url_for('static', filename='img/hero3.jpg') }}"
+            data-images-retina="{{ url_for('static', filename='img/hero1@2x.jpg') }};{{ url_for('static', filename='img/hero2@2x.jpg') }};{{ url_for('static', filename='img/hero3@2x.jpg') }}">
+        </div>
+        <div id="herobuttons">
             <a id="heroprev"></a>
             <a id="heronext"></a>
         </div>

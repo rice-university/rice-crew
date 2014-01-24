@@ -104,8 +104,8 @@ div#herowrapper
 
 div#hero
 {
-    max-width: 2000px;
-    height: 492px;
+    max-width: 2560px;
+    height: 500px;
     position: relative;
     top: -28px;
     margin: 0 auto;
@@ -115,7 +115,7 @@ div#hero
 div#hero > img
 {
     position: absolute;
-    left: -1024px;
+    left: -1296px;
     margin: 0 50%;
     opacity: 1;
 
@@ -143,20 +143,20 @@ div#hero.manual-transition > img
 
 div#hero > img.next
 {
-    left: -1000px;
+    left: -1280px;
     opacity: 0;
 }
 
 div#hero > img.prev
 {
-    left: -1048px;
+    left: -1312px;
     opacity: 0;
 }
 
 div#herobuttons
 {
     position: relative;
-    top: -492px;
+    top: -500px;
     height: 380px;
 }
 
@@ -225,30 +225,30 @@ a#heronext
 
     div#hero
     {
-        max-width: 1000px;
-        height: 246px;
+        max-width: 1280px;
+        height: 250px;
     }
 
     div#hero > img
     {
-        height: 246px;
-        left: -512px;
+        height: 250px;
+        left: -648px;
     }
 
     div#hero > img.next
     {
-        left: -500px;
+        left: -640px;
     }
 
     div#hero > img.prev
     {
-        left: -524px;
+        left: -656px;
     }
 
     div#herobuttons
     {
         position: relative;
-        top: -246px;
+        top: -250px;
         height: 190px;
     }
 
