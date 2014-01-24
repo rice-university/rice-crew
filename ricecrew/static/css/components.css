@@ -316,8 +316,22 @@ footer
     overflow: hidden;
 }
 
+footer > div > *
+{
+    display: inline-block;
+    vertical-align: top;
+}
+
+footer > div > svg
+{
+    margin: 1.5em 1.5em 0;
+    width: 12.354em;
+    height: 4.5em;
+}
+
 footer ul
 {
+    margin: 2.25em 0;
     padding: 0 1.5em;
 }
 
@@ -341,6 +355,15 @@ footer a > svg
 footer a:hover g, footer a:hover path
 {
     fill: rgb(128,170,255);
+}
+
+@media not all and (min-width: 768px) {
+
+    footer > div
+    {
+        text-align: center;
+    }
+
 }
 
 
