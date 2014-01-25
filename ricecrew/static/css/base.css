@@ -110,6 +110,7 @@ a.capsule
     border-radius: 0.25em;
     color: rgb(160,160,160);
     font-weight: 300;
+    text-transform: uppercase;
 }
 
 a.capsule:hover

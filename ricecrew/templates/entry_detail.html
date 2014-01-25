@@ -10,8 +10,8 @@
     <div class="column primary entry">
         {% if has_admin() %}
             <ul class="nobullet horizontal capsuleoffset">
-                <li><a class="capsule" href="{{ url_for('entry_update', pk=model.id) }}">EDIT POST</a></li>
-                <li><a class="capsule" href="{{ url_for('entry_delete', pk=model.id) }}">DELETE POST</a></li>
+                <li><a class="capsule" href="{{ url_for('entry_update', pk=model.id) }}">Edit Post</a></li>
+                <li><a class="capsule" href="{{ url_for('entry_delete', pk=model.id) }}">Delete Post</a></li>
             </ul>
             <div class="separate-top">
         {% endif %}
