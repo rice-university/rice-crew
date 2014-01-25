@@ -18,28 +18,34 @@ class PreviewParser(HTMLParser):
         self.images = images
 
     def build_element(self, tag, attrs, close=False):
-        fstr = '<{} {} />' if close else '<{} {}>'
-        return fstr.format(tag, ' '.join('{}="{}"'.format(*x) for x in attrs))
+        fstr = '<{}{} />' if close else '<{}{}>'
+        return fstr.format(tag, ''.join(' {}="{}"'.format(*x) for x in attrs))
 
-    def handle_start_or_startend(self, tag, attrs, startend=False):
+    def handle_starttag(self, tag, attrs):
         if tag == 'img':
             if self.images > 0:
-                self.parts.append(self.build_element(tag, attrs, startend))
+                self.parts.append(self.build_element(tag, attrs))
                 self.images -= 1
                 self.tag_stack.append(tag)
             else:
                 self.truncated = True
         elif self.length > 0:
-            self.parts.append(self.build_element(tag, attrs, startend))
+            self.parts.append(self.build_element(tag, attrs))
             self.tag_stack.append(tag)
         else:
-            self.truncated  = True
-
-    def handle_starttag(self, tag, attrs):
-        self.handle_start_or_startend(tag, attrs)
+            self.truncated = True
 
     def handle_startendtag(self, tag, attrs):
-        self.handle_start_or_startend(tag, attrs, True)
+        if tag == 'img':
+            if self.images > 0:
+                self.parts.append(self.build_element(tag, attrs, True))
+                self.images -= 1
+            else:
+                self.truncated = True
+        elif self.length > 0:
+            self.parts.append(self.build_element(tag, attrs, True))
+        else:
+            self.truncated = True
 
     def handle_endtag(self, tag):
         if self.tag_stack and self.tag_stack[-1] == tag:
