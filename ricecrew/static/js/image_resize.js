@@ -9,8 +9,8 @@ $(document).ready(function() {
                 initX = translateX, initY = translateY;
 
             var applyTransform = function() {
-                var transformValue = 'translate(' + translateX + 'px, ' +
-                    translateY + 'px) scale(' + scale + ')';
+                var transformValue = 'translate3d(' + translateX + 'px, ' +
+                    translateY + 'px,0) scale3d(' + scale + ',' + scale + ',1)';
                 self.css({
                     '-webkit-transform': transformValue,
                     '-moz-transform': transformValue,
