@@ -107,23 +107,33 @@ div#hero
     max-width: 2560px;
     height: 500px;
     position: relative;
-    top: -28px;
     margin: 0 auto;
     overflow: hidden;
+
+    -webkit-transform: translate3d(0,-28px,0);
+    -moz-transform: translate3d(0,-28px,0);
+    -ms-transform: translate3d(0,-28px,0);
+    -o-transform: translate3d(0,-28px,0);
+    transform: translate3d(0,-28px,0);
 }
 
 div#hero > img
 {
     position: absolute;
-    left: -1296px;
     margin: 0 50%;
     opacity: 1;
 
-    -webkit-transition-property: left, opacity;
-    -moz-transition-property: left, opacity;
-    -ms-transition-property: left, opacity;
-    -o-transition-property: left, opacity;
-    transition-property: left, opacity;
+    -webkit-transform: translate3d(-1296px,0,0);
+    -moz-transform: translate3d(-1296px,0,0);
+    -ms-transform: translate3d(-1296px,0,0);
+    -o-transform: translate3d(-1296px,0,0);
+    transform: translate3d(-1296px,0,0);
+
+    -webkit-transition-property: -webkit-transform, opacity;
+    -moz-transition-property: -moz-transform, opacity;
+    -ms-transition-property: -ms-transform, opacity;
+    -o-transition-property: -o-transform, opacity;
+    transition-property: transform, opacity;
 
     -webkit-transition-duration: 0.75s;
     -moz-transition-duration: 0.75s;
@@ -143,13 +153,21 @@ div#hero.manual-transition > img
 
 div#hero > img.next
 {
-    left: -1280px;
+    -webkit-transform: translate3d(-1280px,0,0);
+    -moz-transform: translate3d(-1280px,0,0);
+    -ms-transform: translate3d(-1280px,0,0);
+    -o-transform: translate3d(-1280px,0,0);
+    transform: translate3d(-1280px,0,0);
     opacity: 0;
 }
 
 div#hero > img.prev
 {
-    left: -1312px;
+    -webkit-transform: translate3d(-1312px,0,0);
+    -moz-transform: translate3d(-1312px,0,0);
+    -ms-transform: translate3d(-1312px,0,0);
+    -o-transform: translate3d(-1312px,0,0);
+    transform: translate3d(-1312px,0,0);
     opacity: 0;
 }
 
@@ -232,17 +250,30 @@ a#heronext
     div#hero > img
     {
         height: 250px;
-        left: -648px;
+
+        -webkit-transform: translate3d(-648px,0,0);
+        -moz-transform: translate3d(-648px,0,0);
+        -ms-transform: translate3d(-648px,0,0);
+        -o-transform: translate3d(-648px,0,0);
+        transform: translate3d(-648px,0,0);
     }
 
     div#hero > img.next
     {
-        left: -640px;
+        -webkit-transform: translate3d(-640px,0,0);
+        -moz-transform: translate3d(-640px,0,0);
+        -ms-transform: translate3d(-640px,0,0);
+        -o-transform: translate3d(-640px,0,0);
+        transform: translate3d(-640px,0,0);
     }
 
     div#hero > img.prev
     {
-        left: -656px;
+        -webkit-transform: translate3d(-656px,0,0);
+        -moz-transform: translate3d(-656px,0,0);
+        -ms-transform: translate3d(-656px,0,0);
+        -o-transform: translate3d(-656px,0,0);
+        transform: translate3d(-656px,0,0);
     }
 
     div#herobuttons

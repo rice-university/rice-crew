@@ -99,20 +99,44 @@ $(document).ready(function() {
             var prevDelta = util.clamp(delta, 0.0, 1.0),
                 nextDelta = util.clamp(delta, -1.0, 0.0);
 
+            var prevTransform = 'translate3d(' +
+                ((-imageWidth + (prevDelta - 2) * transitionWidth) *
+                    imageScale / 2)
+                + 'px,0,0)';
+
+            var currentTransform = 'translate3d(' +
+                ((-imageWidth + (delta - 1) * transitionWidth) *
+                    imageScale / 2)
+                + 'px,0,0)';
+
+            var nextTransform = 'translate3d(' +
+                ((-imageWidth + nextDelta * transitionWidth) *
+                    imageScale / 2)
+                + 'px,0,0)';
+
             prevPane.css({
-                left: ((-imageWidth + (prevDelta - 2) * transitionWidth) *
-                    imageScale / 2) + 'px',
-                opacity: prevDelta
+                '-webkit-transform': prevTransform,
+                '-moz-transform': prevTransform,
+                '-ms-transform': prevTransform,
+                '-o-transform': prevTransform,
+                'transform': prevTransform,
+                'opacity': prevDelta
             });
             currentPane.css({
-                left: ((-imageWidth + (delta - 1) * transitionWidth) *
-                    imageScale / 2) + 'px',
-                opacity: 1 - Math.abs(delta)
+                '-webkit-transform': currentTransform,
+                '-moz-transform': currentTransform,
+                '-ms-transform': currentTransform,
+                '-o-transform': currentTransform,
+                'transform': currentTransform,
+                'opacity': 1 - Math.abs(delta)
             });
             nextPane.css({
-                left: ((-imageWidth + nextDelta * transitionWidth) *
-                    imageScale / 2) + 'px',
-                opacity: -nextDelta
+                '-webkit-transform': nextTransform,
+                '-moz-transform': nextTransform,
+                '-ms-transform': nextTransform,
+                '-o-transform': nextTransform,
+                'transform': nextTransform,
+                'opacity': -nextDelta
             });
         };
         var handleDragEnd = function(event) {
@@ -123,8 +147,12 @@ $(document).ready(function() {
 
             hero.removeClass('manual-transition');
             prevPane.add(currentPane).add(nextPane).css({
-                left: '',
-                opacity: ''
+                '-webkit-transform': '',
+                '-moz-transform': '',
+                '-ms-transform': '',
+                '-o-transform': '',
+                'transform': '',
+                'opacity': ''
             });
 
             if (delta > 0.6) {
@@ -170,10 +198,15 @@ $(document).ready(function() {
         var navHeight = $('nav#mainnav').height();
         $(window).on('scroll', function() {
             var offset = (window.pageYOffset - navHeight) / 2;
-            hero.css('top', offset + 'px');
+            var transform = 'translate3d(0,' + offset + 'px,0)';
+            hero.css({
+                '-webkit-transform': transform,
+                '-moz-transform': transform,
+                '-ms-transform': transform,
+                '-o-transform': transform,
+                'transform': transform
+            });
         });
-    } else {
-        hero.css('top', (-navHeight / 2) + 'px');
     }
 
 
